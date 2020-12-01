@@ -1,0 +1,16 @@
+<svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          version="1.1"
+          x="0px"
+          y="0px"
+          viewBox="0 0 100 125"
+          style="enable-background:new 0 0 100 100;"
+          xml:space="preserve"
+        >
+          <g>
+            <path d="M50,94.5C74,94.5,93.5,75,93.5,51S74,7.5,50,7.5S6.5,27,6.5,51S26,94.5,50,94.5z M50,13.5c20.7,0,37.5,16.8,37.5,37.5   S70.7,88.5,50,88.5S12.5,71.7,12.5,51S29.3,13.5,50,13.5z" />
+            <polygon points="66.1,64.1 68.9,58.9 52,49.7 52,23 46,23 46,51.5 47.6,54.1  " />
+          </g>
+         
+        </svg>
