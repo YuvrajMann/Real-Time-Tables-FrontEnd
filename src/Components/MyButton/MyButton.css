@@ -1,0 +1,16 @@
+.ant-btn.outlined {
+  justify-content: center;
+  background-color: #f05454;
+  border-color: #f05454;
+  color: #fff;
+  font-weight: 800;
+  width: 80px;
+  text-align: center;
+}
+
+.ant-btn.outlined:hover,
+.ant-btn.outlined:focus {
+  color: rgb(255, 255, 255);
+  background-color: #f05454e7;
+  border-color: #f05454;
+}

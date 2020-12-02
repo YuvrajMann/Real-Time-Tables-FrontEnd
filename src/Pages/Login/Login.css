@@ -1,0 +1,124 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+* {
+  font-family: "Poppins", sans-serif;
+}
+.login-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+  min-width: 100vw;
+}
+
+.ant-input-affix-wrapper.ant-input-password:hover {
+  border-color: #f05454;
+}
+.ant-input-affix-wrapper-focused.ant-input-password {
+  border-color: rgba(220, 20, 60, 0.466);
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.219);
+  box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.219);
+}
+
+.loginheader {
+  display: flex;
+  justify-content: space-between;
+  background-color: #dbd8e3;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.459);
+  color: black;
+  height: 70px;
+  align-content: center;
+  align-items: center;
+  width: 100vw;
+}
+
+.loginheader div:nth-child(1) {
+  display: flex;
+  flex-direction: row;
+  min-width: 30%;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+.loginheader div:nth-child(1) img {
+  fill: white;
+  margin-top: 8px;
+}
+.loginheader div:nth-child(2) {
+  display: flex;
+  flex-direction: row;
+  min-width: 20%;
+  justify-content: space-evenly;
+  align-items: center;
+}
+#title_name {
+  font-weight: 700;
+  font-size: 1.3em;
+}
+.links {
+  font-weight: 600;
+}
+.links div:hover {
+  font-weight: 1000;
+  cursor: pointer;
+  color: #f05454;
+}
+.links div:nth-child(2) {
+  border: 2px solid #f054544b;
+  padding: 10px;
+}
+.links div:nth-child(2):hover {
+  background-color: #f05454;
+  color: white;
+}
+.logincontent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.logincontent div:nth-child(1) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.logincontent div:nth-child(1) svg {
+  font-size: 60px;
+}
+.logincontent div:nth-child(1) div {
+  font-size: 2.5em;
+  font-weight: 700;
+}
+.logincontent div:nth-child(2) > input {
+  margin-top: 30px;
+}
+.logincontent div:nth-child(2) > span {
+  margin-top: 30px;
+}
+.login_btn {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+@media only screen and (max-width: 600px) {
+  #signup_btn1 {
+    display: none;
+  }
+}
+@media (min-width: 600px) {
+  .signup_btn {
+    display: none;
+  }
+}
+.loginfooter {
+  background-color: #dbd8e3;
+  display: flex;
+  height: 30px;
+  color: black;
+  font-size: 0.9em;
+  font-weight: 500;
+  justify-content: center;
+  align-items: center;
+}

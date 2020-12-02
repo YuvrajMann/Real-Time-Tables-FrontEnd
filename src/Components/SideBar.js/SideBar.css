@@ -1,0 +1,32 @@
+.logo {
+  text-align: center;
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+.logo h3 {
+  color: white;
+}
+.mytable_btn {
+  text-align: center;
+}
+#tables.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal)
+  .ant-menu-item-selected {
+  background-color: #f05454;
+}
+.add_btn {
+  text-align: center;
+  font-size: 40px;
+  color: #f05454;
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-top: -10px;
+  background-color: #436080c5;
+  border-radius: 80px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.add_btn:hover {
+  color: #30475e;
+  background-color: #f05454;
+}

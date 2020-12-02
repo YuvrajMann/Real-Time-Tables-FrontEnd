@@ -1,0 +1,12 @@
+#my_inut:hover {
+  border-color: #f05454;
+}
+#my_inut:active {
+  border-color: #f05454;
+}
+#my_inut:focus {
+  border-color: rgba(220, 20, 60, 0.466);
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.219);
+  box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.219);
+}
