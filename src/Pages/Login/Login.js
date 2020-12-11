@@ -40,6 +40,7 @@ class Login extends Component {
                 style={{
                   width: "100%",
                 }}
+                onClick={this.props.toggleLoggedIn}
               ></MyButton>
             </div>
             <div className="signup_btn">

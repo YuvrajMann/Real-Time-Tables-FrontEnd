@@ -1,0 +1,35 @@
+.header_content {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 30px;
+  padding-right: 15px;
+  font-size: 1.2em;
+}
+.header_content div:nth-child(1) {
+  font-weight: 600;
+}
+.header_content div:nth-child(1) svg {
+  margin-left: 10px;
+}
+.options {
+  display: flex;
+  flex-direction: row;
+  width: 9vw;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+}
+.options svg {
+  cursor: pointer;
+}
+.options svg:hover {
+  color: #f05454;
+}
+
+.options > div {
+  background-color: rgba(255, 255, 255, 0.171);
+  width: 1px;
+  height: 64px;
+  margin-right: 4px;
+}

@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Layout, Menu, Breadcrumb } from "antd";
 import SideBar from "../../Components/SideBar.js/SideBar.js";
+import MyHeader from "../../Components/MyHeader/MyHeader";
+import MainContent from "../../Components/MainContent/MainContent";
+import { Switch, Route } from "react-router-dom";
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 class MyTables extends Component {
@@ -22,22 +25,9 @@ class MyTables extends Component {
           collapsed={this.state.collapsed}
           onCollapse={this.onCollapse}
         ></SideBar>
-
         <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }} />
-          <Content style={{ margin: "0 16px" }}>
-            <Breadcrumb style={{ margin: "16px 0" }}>
-              <Breadcrumb.Item>User</Breadcrumb.Item>
-              <Breadcrumb.Item>Bill</Breadcrumb.Item>
-            </Breadcrumb>
-            <div
-              className="site-layout-background"
-              style={{ padding: 24, minHeight: 360 }}
-            >
-              Bill is a cat.
-            </div>
-          </Content>
-          <Footer style={{ textAlign: "center" }}></Footer>
+          <MyHeader></MyHeader>
+          <MainContent history={this.props.history}></MainContent>
         </Layout>
       </Layout>
     );

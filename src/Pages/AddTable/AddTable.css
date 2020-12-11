@@ -1,0 +1,10 @@
+.add_wrapper {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+}
+.input_wrapper {
+  padding-left: 80px;
+  padding-right: 80px;
+  margin-top: 60px;
+}

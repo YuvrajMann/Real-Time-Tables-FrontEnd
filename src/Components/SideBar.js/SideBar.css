@@ -14,6 +14,10 @@
   .ant-menu-item-selected {
   background-color: #f05454;
 }
+#col_tables.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal)
+  .ant-menu-item-selected {
+  background-color: #f05454;
+}
 .add_btn {
   text-align: center;
   font-size: 40px;
@@ -29,4 +33,27 @@
 .add_btn:hover {
   color: #30475e;
   background-color: #f05454;
+}
+
+#col_tables::-webkit-scrollbar {
+  display: none;
+}
+#tables::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+#tables::-webkit-scrollbar-track {
+  background: #3b5875;
+}
+
+/* Handle */
+#tables::-webkit-scrollbar-thumb {
+  background: #8fa4b9;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+#tables::-webkit-scrollbar-thumb:hover {
+  background: #5c748b;
 }

@@ -1,0 +1,28 @@
+.wrapper {
+  background-color: white;
+  padding: 50px;
+  border-radius: 10px;
+}
+.edit_btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+.date {
+  display: flex;
+}
+.date svg {
+  color: #f05454;
+  font-size: 25px;
+  margin-right: 10px;
+}
+.date div {
+  font-size: 17px;
+  margin-right: 10px;
+  font-weight: 500;
+}
+#bar {
+  border-left: 1px solid rgba(0, 0, 0, 0.397);
+  width: 2px;
+  height: 27px;
+}
