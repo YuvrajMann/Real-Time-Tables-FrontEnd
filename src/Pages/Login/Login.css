@@ -102,12 +102,12 @@
   margin-bottom: 20px;
   width: 100%;
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1000px) {
   #signup_btn1 {
     display: none;
   }
 }
-@media (min-width: 600px) {
+@media (min-width: 1000px) {
   .signup_btn {
     display: none;
   }

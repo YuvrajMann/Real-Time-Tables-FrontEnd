@@ -26,3 +26,12 @@
   width: 2px;
   height: 27px;
 }
+.tableHeader {
+  display: flex;
+  justify-content: space-between;
+}
+.table_name {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.897);
+}

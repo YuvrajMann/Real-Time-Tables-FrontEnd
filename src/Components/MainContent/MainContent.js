@@ -4,6 +4,8 @@ import { Table } from "antd";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import MyTables from "../../Pages/MyTables/MyTables";
 import AddTable from "../../Pages/AddTable/AddTable";
+import AllTables from "../../Pages/AllTables/AllTables";
+
 const { Content } = Layout;
 
 class MainContent extends Component {
@@ -22,7 +24,7 @@ class MainContent extends Component {
       >
         <Switch>
           <Route
-            path="/tables/"
+            path="/tables/:tableId"
             key={1}
             exact={true}
             children={() => {
@@ -34,6 +36,12 @@ class MainContent extends Component {
             path="/addTable"
             children={() => {
               return <AddTable history={this.props.history}></AddTable>;
+            }}
+          ></Route>
+          <Route
+            path="/allTables"
+            children={() => {
+              return <AllTables history={this.props.history}></AllTables>;
             }}
           ></Route>
         </Switch>

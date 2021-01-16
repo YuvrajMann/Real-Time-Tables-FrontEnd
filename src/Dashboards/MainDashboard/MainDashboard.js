@@ -3,7 +3,8 @@ import { Layout, Menu, Breadcrumb } from "antd";
 import SideBar from "../../Components/SideBar.js/SideBar.js";
 import MyHeader from "../../Components/MyHeader/MyHeader";
 import MainContent from "../../Components/MainContent/MainContent";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
+import AllTables from "../../Pages/AllTables/AllTables";
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 class MyTables extends Component {
@@ -17,16 +18,25 @@ class MyTables extends Component {
     console.log(collapsed);
     this.setState({ collapsed });
   };
+
   render() {
-    const { collapsed } = this.state;
+    const page = this.props.history.location.pathname.split("/")[1];
+    const isAllTable = page == "allTables";
+    console.log(isAllTable);
     return (
       <Layout style={{ minHeight: "100vh" }}>
-        <SideBar
-          collapsed={this.state.collapsed}
-          onCollapse={this.onCollapse}
-        ></SideBar>
+        {!isAllTable ? (
+          <SideBar
+            collapsed={this.state.collapsed}
+            onCollapse={this.onCollapse}
+            history={this.props.history}
+          ></SideBar>
+        ) : null}
         <Layout className="site-layout">
-          <MyHeader></MyHeader>
+          <MyHeader
+            toggleLoggedIn={this.props.toggleLoggedIn}
+            history={this.props.history}
+          ></MyHeader>
           <MainContent history={this.props.history}></MainContent>
         </Layout>
       </Layout>

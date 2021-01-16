@@ -68,8 +68,10 @@ class AddTable extends Component {
   prev() {
     this.setState({ ...this.state, current: this.state.current - 1 });
   }
+  redirectToHome = () => {
+    this.props.history.push("/allTables");
+  };
   render() {
-    console.log(this.state);
     const current = this.state.current;
     switch (current) {
       case 0:
@@ -127,6 +129,7 @@ class AddTable extends Component {
               ))}
             </Steps>
             <CompleteTable
+              redirectToHome={this.redirectToHome}
               tableinfo={this.state}
               next={this.next}
               prev={this.prev}

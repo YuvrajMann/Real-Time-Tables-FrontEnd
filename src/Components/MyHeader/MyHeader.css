@@ -1,10 +1,22 @@
 .header_content {
-  color: white;
+  color: rgba(0, 0, 0, 0.822);
   display: flex;
   justify-content: space-between;
   padding-left: 30px;
   padding-right: 15px;
   font-size: 1.2em;
+  align-items: flex-start;
+  align-content: center;
+}
+.logo_header {
+  color: black;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  font-size: 1.2em;
+}
+.logo_header div:nth-child(1) {
+  margin-right: 5px;
 }
 .header_content div:nth-child(1) {
   font-weight: 600;
@@ -28,7 +40,7 @@
 }
 
 .options > div {
-  background-color: rgba(255, 255, 255, 0.171);
+  background-color: rgba(0, 0, 0, 0.274);
   width: 1px;
   height: 64px;
   margin-right: 4px;

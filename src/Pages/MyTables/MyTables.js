@@ -2,16 +2,66 @@ import React, { Component } from "react";
 import TableContent from "../../Components/Content/content";
 import MyButton from "../../Components/MyButton/MyButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendar, faClock } from "@fortawesome/free-solid-svg-icons";
-import { Divider, Space } from "antd";
+import {
+  faCalendar,
+  faClock,
+  faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
+import { axiosInstance } from "../../utils/axiosInterceptor.js";
+import { Divider, Space, message, Skeleton } from "antd";
 import "./MyTables.css";
+
 class MyTables extends Component {
   constructor(props) {
     super(props);
     this.state = {
       curTime: null,
+      tableId: null,
+      tableName: null,
+      loading: false,
     };
     this.clock = this.clock.bind(this);
+  }
+  fetchTableDetails = () => {
+    this.setState({ ...this.state, loading: true });
+    setTimeout(() => {
+      axiosInstance
+        .get(`/table/${this.state.tableId}`)
+        .then((table) => {
+          console.log(table);
+          this.setState({
+            ...this.state,
+            tableName: table.data.tableName,
+            loading: false,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.message) {
+            message.warn(err.message);
+          }
+          this.setState({
+            ...this.state,
+
+            loading: false,
+          });
+        });
+    }, 1000);
+  };
+  componentDidMount() {
+    this.clock();
+    setInterval(this.clock, 1000);
+    const tableId = this.props.history.location.pathname.split("/")[2];
+    this.setState(
+      {
+        ...this.state,
+        tableId: tableId,
+      },
+      () => {
+        this.fetchTableDetails();
+      }
+    );
+    console.log(tableId);
   }
   columns = [
     {
@@ -121,35 +171,41 @@ class MyTables extends Component {
     var str = `${harold(hours)}:${harold(minutes)}:${harold(seconds)}`;
     this.setState({ ...this.state, curTime: str });
   }
-  componentDidMount() {
-    this.clock();
-    setInterval(this.clock, 1000);
-  }
+
   render() {
-    console.log(this.state.curTime);
     const d = new Date();
     const dateToFormat = "dd/mm/yyyy";
     return (
       <div className="wrapper">
-        <div className="date">
-          <FontAwesomeIcon icon={faCalendar}></FontAwesomeIcon>
+        <div className="tableHeader">
+          <div className="table_name">My Tables/{this.state.tableName}</div>
 
-          <div>
-            {d.getDate()}-{d.getMonth()}-{d.getFullYear()}
+          <div className="date">
+            <FontAwesomeIcon icon={faCalendar}></FontAwesomeIcon>
+
+            <div>
+              {d.getDate()}-{d.getMonth()}-{d.getFullYear()}
+            </div>
+            <div id="bar"></div>
+            <FontAwesomeIcon icon={faClock}></FontAwesomeIcon>
+            <div>{this.state.curTime}</div>
           </div>
-          <div id="bar"></div>
-          <FontAwesomeIcon icon={faClock}></FontAwesomeIcon>
-          <div>{this.state.curTime}</div>
         </div>
         <Divider></Divider>
-        <TableContent
-          id="displayTable"
-          columns={this.columns}
-          data={this.data}
-        ></TableContent>
-        <div className="edit_btn">
-          <MyButton text="Edit"></MyButton>
-        </div>
+        {this.state.loading ? (
+          <Skeleton active></Skeleton>
+        ) : (
+          <>
+            <TableContent
+              id="displayTable"
+              columns={this.columns}
+              data={this.data}
+            ></TableContent>
+            <div className="edit_btn">
+              <MyButton text="Edit"></MyButton>
+            </div>
+          </>
+        )}
       </div>
     );
   }
