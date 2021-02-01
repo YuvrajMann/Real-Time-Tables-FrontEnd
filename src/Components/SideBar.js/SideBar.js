@@ -49,9 +49,6 @@ class SideBar extends Component {
   render() {
     return (
       <Sider
-        collapsible
-        collapsed={this.props.collapsed}
-        onCollapse={this.props.onCollapse}
         style={{
           background: "#30475e",
           boxShadow: "rgba(114, 114, 114, 0.42) 1px 3px 5px -1px",
@@ -119,8 +116,8 @@ class SideBar extends Component {
             defaultSelectedKeys={["1"]}
             style={{
               background: "#30475e",
-              maxHeight: "48vh",
-              overflowY: "scroll",
+              height: "100vh",
+              overflowY: "auto",
             }}
             mode="inline"
             id={this.props.collapsed ? "col_tables" : "tables"}

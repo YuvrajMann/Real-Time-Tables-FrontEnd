@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { Row, Col, Skeleton, message, Tooltip, Divider } from "antd";
+import { Row, Col, Skeleton, message, Tooltip, Divider, Modal } from "antd";
 import { axiosInstance } from "../../utils/axiosInterceptor.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import DelTable from "./DelTable";
 import "./AllTables.css";
 
 const Card = (props) => {
@@ -19,7 +20,12 @@ const Card = (props) => {
   }
   return (
     <div className="table_card">
-      <div className="table_card_name">{props.tableName}</div>
+      <div className="table_card_name">
+        <div></div>
+        <div>{props.tableName}</div>
+
+        <DelTable table={props}></DelTable>
+      </div>
       <div className="option_table">
         <Link to={`/tables/${props.tableId}`}>
           <div className="view ">View</div>
@@ -75,7 +81,7 @@ class AllTables extends Component {
     this.fetchAllTables();
   }
   render() {
-    console.log(this.state.tables);
+    console.log(this.props.history);
     return (
       <div className="wrapper">
         <div className="all_header">Tables</div>
@@ -102,6 +108,7 @@ class AllTables extends Component {
                         createdAt={table.createdAt}
                         updatedAt={table.updatedAt}
                         tableId={table._id}
+                        fetchAllTables={this.fetchAllTables}
                       ></Card>
                     </Col>
                   );

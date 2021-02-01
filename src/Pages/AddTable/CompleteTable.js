@@ -55,13 +55,16 @@ class CompleteTable extends Component {
     return data;
   };
   handleSelectChange = (details) => {
-    const x = details.split(" ");
+    const x = details.split("'__'");
     var sub = x[0];
     var day = x[1];
     var slot = x[2];
     this.setState((prevState) => {
       const setObj = prevState.completeDetails;
-      setObj[days[day]][slot] = sub;
+      if (setObj) {
+        setObj[days[day]][slot] = sub;
+      }
+      console.log(setObj);
       return {
         ...prevState,
         completeDetails: setObj,
@@ -107,13 +110,13 @@ class CompleteTable extends Component {
                 const str = sub[`Sub_${index + 1}_Name`];
 
                 return (
-                  <Option key={index} value={`${str} ${row} ${i}`}>
+                  <Option key={index} value={`${str}'__'${row}'__'${i}`}>
                     {str}
                   </Option>
                 );
               })}
-              <Option value={`Break ${row} ${i}`}>Break</Option>
-              <Option value={`NA ${row} ${i}`}>---</Option>
+              <Option value={`Break'__'${row}'__'${i}`}>Break</Option>
+              <Option value={`NA'__'${row}'__'${i}`}>---</Option>
             </Select>
           );
         },
@@ -149,6 +152,11 @@ class CompleteTable extends Component {
       }
     }
     result["table"] = table;
+
+    let subjects = {};
+    subjects["numberOfSub"] = this.props.tableinfo.numberOfSub;
+    subjects["subInfo"] = this.props.tableinfo.subInfo;
+    result["subjects"] = subjects;
     console.log(result);
     setTimeout(() => {
       axiosInstance
@@ -169,7 +177,7 @@ class CompleteTable extends Component {
   render() {
     const columns = this.createColumns();
     const data = this.createData();
-    console.log(this.props.history);
+    console.log(this.props);
     return (
       <div className="input_wrapper">
         <Table

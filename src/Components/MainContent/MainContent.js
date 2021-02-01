@@ -5,7 +5,7 @@ import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import MyTables from "../../Pages/MyTables/MyTables";
 import AddTable from "../../Pages/AddTable/AddTable";
 import AllTables from "../../Pages/AllTables/AllTables";
-
+import EditTables from "../../Pages/EditTable/EditTable";
 const { Content } = Layout;
 
 class MainContent extends Component {
@@ -13,7 +13,6 @@ class MainContent extends Component {
     super(props);
   }
   render() {
-    console.log(this.props.history);
     return (
       <Content
         style={{
@@ -25,10 +24,8 @@ class MainContent extends Component {
         <Switch>
           <Route
             path="/tables/:tableId"
-            key={1}
             exact={true}
-            children={() => {
-              console.log("inside tables");
+            component={() => {
               return <MyTables history={this.props.history}></MyTables>;
             }}
           ></Route>
@@ -42,6 +39,13 @@ class MainContent extends Component {
             path="/allTables"
             children={() => {
               return <AllTables history={this.props.history}></AllTables>;
+            }}
+          ></Route>
+          <Route
+            path="/editTable/:tableId"
+            exact={true}
+            component={() => {
+              return <EditTables history={this.props.history}></EditTables>;
             }}
           ></Route>
         </Switch>

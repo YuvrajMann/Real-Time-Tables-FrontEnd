@@ -22,7 +22,7 @@ class MyTables extends Component {
   render() {
     const page = this.props.history.location.pathname.split("/")[1];
     const isAllTable = page == "allTables";
-    console.log(isAllTable);
+
     return (
       <Layout style={{ minHeight: "100vh" }}>
         {!isAllTable ? (

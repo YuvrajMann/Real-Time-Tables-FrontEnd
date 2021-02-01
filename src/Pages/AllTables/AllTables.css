@@ -77,3 +77,45 @@
 .addTable {
   background-color: rgba(0, 0, 0, 0.164);
 }
+/* .table_card_name {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  align-items: flex-start;
+} */
+.table_card_name {
+  width: 100%;
+  text-align: center;
+}
+.table_card_name div:nth-child(3) {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  width: 97%;
+  margin-top: -40px;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.76);
+}
+.table_card_name div:nth-child(3):hover {
+  color: rgba(255, 0, 0, 0.76);
+}
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100px;
+  width: 100%;
+  align-content: space-between;
+  align-items: center;
+}
+.header {
+  font-size: 18px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.897);
+}
+.ant-modal-content {
+  border-radius: 20px;
+}
+.ant-modal-close {
+  display: none;
+}
