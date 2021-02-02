@@ -1,5 +1,6 @@
 #display_table {
-  overflow-y: scroll;
+  overflow-y: auto;
+  overflow-x: auto;
 }
 .ant-pagination.ant-table-pagination.ant-table-pagination-right {
   display: none;

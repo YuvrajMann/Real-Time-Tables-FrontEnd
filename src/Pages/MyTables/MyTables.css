@@ -35,3 +35,56 @@
   font-weight: 600;
   color: rgba(0, 0, 0, 0.897);
 }
+.my_tablefooter {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  align-content: center;
+  justify-content: flex-end;
+}
+.sub_modal_content {
+  margin-top: 10px;
+}
+.sub_modal_header {
+  margin-left: -20px;
+  margin-right: -20px;
+  border-bottom: 1px solid #f0545452;
+}
+.sub_modal_header h1 {
+  font-weight: 600;
+  color: #f05454;
+  text-align: center;
+  text-transform: uppercase;
+}
+.particular_subname_header .header_subname {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+.particular_subname_header .content_subname .particular_sub {
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+.particular_subname_header .content_subname .particular_sub div {
+  width: 50%;
+
+  text-align: center;
+}
+/* .sub_modal_content {
+  display: flex;
+  justify-content: space-around;
+}
+.particular_subname_header {
+  width: 50%;
+  border-right: 1px solid #f0545452;
+  text-align: center;
+}
+.particular_subteacher_header {
+  width: 50%;
+  text-align: center;
+}
+.particular_sub {
+  overflow-x: auto;
+} */

@@ -12,6 +12,7 @@ import { axiosInstance } from "../../utils/axiosInterceptor.js";
 import { Divider, Space, message, Skeleton } from "antd";
 import { Link } from "react-router-dom";
 import "./MyTables.css";
+import SubjectModal from "./SubjectModal.js";
 
 const days = [
   "Monday",
@@ -111,98 +112,6 @@ class MyTables extends Component {
       data: tabledata,
     });
   }
-  // data = [
-  //   {
-  //     key: "1",
-  //     Day: "Monday",
-  //     slot1: "Mathematics",
-  //     slot2: "Hindi",
-  //     slot3: "Computer",
-  //     slot4: "Geography",
-  //     slot5: "Social Studies",
-  //   },
-  //   {
-  //     key: "1",
-  //     Day: "Tuesday",
-  //     slot1: "Mathematics",
-  //     slot2: "Hindi",
-  //     slot3: "Computer",
-  //     slot4: "Geography",
-  //     slot5: "Social Studies",
-  //   },
-  //   {
-  //     key: "1",
-  //     Day: "Wednesday",
-  //     slot1: "Mathematics",
-  //     slot2: "Hindi",
-  //     slot3: "Computer",
-  //     slot4: "Geography",
-  //     slot5: "Social Studies",
-  //   },
-  //   {
-  //     key: "1",
-  //     Day: "Thursday",
-  //     slot1: "Mathematics",
-  //     slot2: "Hindi",
-  //     slot3: "Computer",
-  //     slot4: "Geography",
-  //     slot5: "Social Studies",
-  //   },
-  //   {
-  //     key: "1",
-  //     Day: "Friday",
-  //     slot1: "Mathematics",
-  //     slot2: "Hindi",
-  //     slot3: "Computer",
-  //     slot4: "Geography",
-  //     slot5: "Social Studies",
-  //   },
-  //   {
-  //     key: "1",
-  //     Day: "Saturday",
-  //     slot1: "Mathematics",
-  //     slot2: "Hindi",
-  //     slot3: "Computer",
-  //     slot4: "Geography",
-  //     slot5: "Social Studies",
-  //   },
-  // ];
-  // columns = [
-  //   {
-  //     title: "Day",
-  //     dataIndex: "Day",
-  //     key: "Day",
-  //     render: (day) => {
-  //       return <div style={{ fontWeight: 700 }}>{day}</div>;
-  //     },
-  //   },
-  //   {
-  //     title: "9:45 - 10:45",
-  //     dataIndex: "slot1",
-  //     key: "slot1",
-  //   },
-  //   {
-  //     title: "10:45 - 11:45",
-  //     dataIndex: "slot2",
-  //     key: "slot2",
-  //   },
-  //   {
-  //     title: "11:45 - 12:45",
-  //     dataIndex: "slot3",
-  //     key: "slot3",
-  //   },
-  //   {
-  //     title: "1:45 - 2:45",
-  //     dataIndex: "slot4",
-  //     key: "slot4",
-  //   },
-  //   {
-  //     title: "9:45 - 10:45",
-  //     dataIndex: "slot5",
-  //     key: "slot5",
-  //   },
-  // ];
-
   clock() {
     // We create a new Date object and assign it to a variable called "time".
     var time = new Date(),
@@ -253,11 +162,18 @@ class MyTables extends Component {
               columns={this.state.columns}
               data={this.state.data}
             ></TableContent>
-            <Link to={`/editTable/${this.state.tableId}`}>
-              <div className="edit_btn">
-                <MyButton text="Edit"></MyButton>
-              </div>
-            </Link>
+
+            <div className="my_tablefooter">
+              <SubjectModal history={this.props.history}></SubjectModal>
+              <Link to={`/editTable/${this.state.tableId}`}>
+                <div className="edit_btn">
+                  <MyButton
+                    text="Edit"
+                    style={{ borderRadius: "10px" }}
+                  ></MyButton>
+                </div>
+              </Link>
+            </div>
           </>
         )}
       </div>

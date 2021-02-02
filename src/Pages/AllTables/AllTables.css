@@ -113,7 +113,7 @@
   font-weight: 500;
   color: rgba(0, 0, 0, 0.897);
 }
-.ant-modal-content {
+div.ant-modal-content {
   border-radius: 20px;
 }
 .ant-modal-close {

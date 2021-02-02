@@ -30,8 +30,9 @@ const Card = (props) => {
         <Link to={`/tables/${props.tableId}`}>
           <div className="view ">View</div>
         </Link>
-
-        <div className="update">Update</div>
+        <Link to={`/editTable/${props.tableId}`}>
+          <div className="update">Update</div>
+        </Link>
       </div>
       <div className="table_card_dates">
         <Tooltip title={props.createdAt}>

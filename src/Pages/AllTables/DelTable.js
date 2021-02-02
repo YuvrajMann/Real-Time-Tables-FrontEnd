@@ -50,9 +50,6 @@ class DelTable extends Component {
             visible={this.state.isOpen}
             onOk={this.handleOk}
             onCancel={this.handleCancel}
-            style={{
-              borderRadius: "80px",
-            }}
             footer={[]}
           >
             <div className="modalContent">
