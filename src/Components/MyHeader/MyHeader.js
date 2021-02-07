@@ -12,6 +12,7 @@ import "./MyHeader.css";
 import { axiosInstance } from "../../utils/axiosInterceptor.js";
 import Spinner from "../Spinner/Spinner";
 import SiteLogo from "../../assests/clock1.svg";
+import UserDisplay from "../UseDisplay/UserDisplay";
 const { Header } = Layout;
 class MyHeader extends Component {
   constructor(props) {
@@ -48,9 +49,7 @@ class MyHeader extends Component {
           </div>
           <div className="options">
             <div></div>
-            <Tooltip title="User">
-              <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-            </Tooltip>
+            <UserDisplay></UserDisplay>
 
             <div></div>
             <Tooltip title="Share">
