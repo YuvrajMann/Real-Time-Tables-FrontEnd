@@ -1,0 +1,70 @@
+.signUpWrapper {
+  height: 100%;
+  display: flex;
+  /* justify-content: space-between; */
+}
+.left_content {
+  width: 40%;
+  height: 100vh;
+  background: url("../../assests/alex-iby-xVPaGwmde0A-unsplash.jpg") no-repeat
+    bottom;
+  background-repeat: no-repeat;
+  background-size: auto;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.left_content > div:nth-child(3) {
+  color: white;
+  font-size: 17px;
+  font-weight: 500;
+}
+#left_text {
+  margin-top: -130px;
+}
+#left_text > div:nth-child(1) {
+  color: white;
+  font-weight: 600;
+  font-size: 50px;
+}
+#left_text > div:nth-child(2) {
+  color: white;
+  font-weight: 400;
+  font-size: 25px;
+}
+.logo {
+  margin-top: 10px;
+}
+/* .left_content div {
+  background: url("../../assests/my.jpg") no-repeat center;
+  background-repeat: no-repeat;
+  background-size: auto;
+  height: 100%;
+  width: 100%;
+} */
+.right_content {
+  width: 60%;
+  padding-left: 80px;
+  padding-right: 80px;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+#header_signup {
+  text-align: center;
+  padding-top: 30px;
+}
+#join_btn {
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  background-color: black;
+  color: white;
+  font-size: 1.2em;
+  height: 37px;
+  border-radius: 5px;
+  border: 1px solid black;
+}

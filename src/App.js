@@ -6,6 +6,7 @@ import MainDashboard from "./Dashboards/MainDashboard/MainDashboard";
 import AllTables from "../src/Pages/AllTables/AllTables";
 import { axiosInstance } from "./utils/axiosInterceptor";
 import { message } from "antd";
+import SignUp from "./Pages/SignUp/SignUp.js";
 import axios from "axios";
 class App extends Component {
   constructor(props) {
@@ -57,6 +58,12 @@ class App extends Component {
                   toggleLoggedIn={this.toggleLoggedIn}
                 ></Login>
               )}
+            ></Route>
+            <Route
+              path="/signUp"
+              exact
+              history={this.props.history}
+              render={(props) => <SignUp history={props.history}></SignUp>}
             ></Route>
           </Switch>
         </BrowserRouter>

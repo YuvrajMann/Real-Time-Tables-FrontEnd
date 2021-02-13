@@ -11,6 +11,7 @@ import "./Login.css";
 import MyButton from "../../Components/MyButton/MyButton";
 import MyInput from "../../Components/Input/MyInput";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { axiosInstance } from "../../utils/axiosInterceptor";
 class Login extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class Login extends Component {
     };
     this.handleLogin = this.handleLogin.bind(this);
   }
+
   handleLogin = () => {
     const { username, password } = this.state;
     console.log(username, password);
@@ -106,11 +108,13 @@ class Login extends Component {
           </div>
           <div className="links">
             <div>About</div>
-            <MyButton
-              text="Sign Up"
-              id="signup_btn1"
-              style={{ width: "90px", height: "40px", borderRadius: "20px" }}
-            ></MyButton>
+            {/* <Link to="/signUp">
+              <MyButton
+                text="Sign Up"
+                id="signup_btn1"
+                style={{ width: "90px", height: "40px", borderRadius: "20px" }}
+              ></MyButton>
+            </Link> */}
           </div>
         </div>
         <div className="logincontent">
@@ -118,7 +122,7 @@ class Login extends Component {
             <FontAwesomeIcon icon={faUser} />
             <div>Login</div>
           </div>
-          <div>
+          <div ref={this.myBox}>
             <Tooltip
               color="#FF8A8A"
               title={() => {
@@ -181,15 +185,17 @@ class Login extends Component {
                 loading={this.state.btnLoading}
               ></MyButton>
             </div>
-            <div className="signup_btn">
-              <MyButton
-                text="Sign Up"
-                loading={false}
-                style={{
-                  width: "100%",
-                }}
-              ></MyButton>
-            </div>
+            <Link to="/signUp">
+              <div className="signup_btn">
+                <MyButton
+                  text="Sign Up"
+                  loading={false}
+                  style={{
+                    width: "100%",
+                  }}
+                ></MyButton>
+              </div>
+            </Link>
           </div>
         </div>
         <div className="loginfooter">

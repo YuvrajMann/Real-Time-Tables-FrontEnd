@@ -23,6 +23,13 @@ class MainContent extends Component {
       >
         <Switch>
           <Route
+            path="/"
+            exact
+            children={() => {
+              return <AllTables history={this.props.history}></AllTables>;
+            }}
+          ></Route>
+          <Route
             path="/tables/:tableId"
             exact={true}
             component={() => {

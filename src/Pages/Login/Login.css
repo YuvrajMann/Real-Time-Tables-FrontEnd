@@ -23,8 +23,9 @@
 .loginheader {
   display: flex;
   justify-content: space-between;
-  background-color: #dbd8e3;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.459);
+  background-color: #dbd8e34b;
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.089);
   color: black;
   height: 70px;
   align-content: center;
@@ -77,12 +78,30 @@
   justify-content: center;
   align-items: center;
   align-content: center;
+  /* background-color: #f05454; */
 }
 .logincontent div:nth-child(1) {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.logincontent > div:nth-child(1) {
+  background-color: rgba(0, 0, 0, 0.041);
+  max-width: 447px;
+  width: 100%;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 5px 5px 0px 0px;
+}
+.logincontent > div:nth-child(2) {
+  background-color: rgba(0, 0, 0, 0.041);
+
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  border-radius: 0px 0px 5px 5px;
 }
 .logincontent div:nth-child(1) svg {
   font-size: 60px;
@@ -113,7 +132,7 @@
   }
 }
 .loginfooter {
-  background-color: #dbd8e3;
+  background-color: #dbd8e363;
   display: flex;
   height: 30px;
   color: black;
@@ -121,4 +140,10 @@
   font-weight: 500;
   justify-content: center;
   align-items: center;
+}
+.login-page {
+  /* background: url("../../assests/marek-piwnicki-LGgKrtjNsoI-unsplash.jpg"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
 }
