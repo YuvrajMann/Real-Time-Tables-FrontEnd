@@ -69,7 +69,6 @@
 }
 .particular_subname_header .content_subname .particular_sub div {
   width: 50%;
-
   text-align: center;
 }
 /* .sub_modal_content {
@@ -88,3 +87,44 @@
 .particular_sub {
   overflow-x: auto;
 } */
+.inaccessibe_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+}
+.inaccess_header {
+  font-size: 1.8em;
+  text-align: center;
+  font-weight: 700;
+  color: black;
+}
+.inaccessibe_wrapper div:nth-child(2) {
+  font-size: 1.2em;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.671);
+  margin-top: 20px;
+}
+/* .access_button {
+  text-align: center;
+  margin-top: 25px;
+  background-color: black;
+  color: white;
+  font-size: 1.1em;
+  font-weight: bold;
+  width: 150px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  padding: 15px;
+  border: 1px solid black;
+  transition: 0.1s all ease-in-out;
+} */
+.access_button:hover {
+  color: black;
+  background-color: white;
+  border: 1px solid black;
+}
+.oops {
+  font-size: 3em;
+}

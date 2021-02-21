@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import { axiosInstance } from "../../utils/axiosInterceptor.js";
-import { Divider, Space, message, Skeleton } from "antd";
+import { Divider, Button, Space, message, Skeleton } from "antd";
 import { Link } from "react-router-dom";
 import "./MyTables.css";
 import SubjectModal from "./SubjectModal.js";
@@ -33,8 +33,12 @@ class MyTables extends Component {
       columns: [],
       data: [],
       tableId: null,
+      isAccessible: true,
+      makeRequestLoading: false,
+      isButtonDisabled: false,
     };
     this.clock = this.clock.bind(this);
+    this.handleMakeRequest = this.handleMakeRequest.bind(this);
   }
   fetchTableDetails = () => {
     const tableId = this.props.history.location.pathname.split("/")[2];
@@ -43,6 +47,7 @@ class MyTables extends Component {
       axiosInstance
         .get(`/table/${tableId}`)
         .then((table) => {
+          this.setState({ ...this.state, isAccessible: true });
           console.log(table);
           this.createColumns(table.data.periods);
           this.createData(table.data.table);
@@ -54,9 +59,13 @@ class MyTables extends Component {
           });
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err.response.status);
+          if (err.response.status == 403) {
+            this.setState({ ...this.state, isAccessible: false });
+            message.warn("You are forbidden to access this table!");
+          }
           if (err.message) {
-            message.warn(err.message);
+            console.log(err.message);
           }
           this.setState({
             ...this.state,
@@ -129,52 +138,113 @@ class MyTables extends Component {
     var str = `${harold(hours)}:${harold(minutes)}:${harold(seconds)}`;
     this.setState({ ...this.state, curTime: str });
   }
-
+  handleMakeRequest() {
+    const tableId = this.props.history.location.pathname.split("/")[2];
+    this.setState({
+      ...this.state,
+      makeRequestLoading: true,
+    });
+    setTimeout(() => {
+      axiosInstance
+        .post(`https://localhost:3433/access/accessRequest/${tableId}`, {
+          access_request: "View",
+        })
+        .then((res) => {
+          console.log(res.data);
+          message.success("Request sent successfully!");
+          this.setState({
+            ...this.state,
+            makeRequestLoading: false,
+            isButtonDisabled: true,
+          });
+        })
+        .catch((err) => {
+          this.setState({
+            ...this.state,
+            makeRequestLoading: false,
+          });
+          message.warn("Failed to make access request");
+          if (err.message) {
+            console.log(err.message);
+          }
+        });
+    }, 2000);
+  }
   render() {
     const d = new Date();
     const dateToFormat = "dddd, MMMM Do YYYY";
     return (
       <div className="wrapper">
-        <div className="tableHeader">
-          <div className="table_name">My Tables/{this.state.tableName}</div>
-
-          <div className="date">
-            <FontAwesomeIcon icon={faCalendar}></FontAwesomeIcon>
-
-            <div>
-              {moment().format(dateToFormat)}
-              {/* {d.getDate()}-{d.getMonth() + 1}-{d.getFullYear()} */}
-            </div>
-            <div id="bar"></div>
-            <div style={{ width: "90px", display: "flex" }}>
-              <FontAwesomeIcon icon={faClock}></FontAwesomeIcon>
-              <div>{this.state.curTime}</div>
-            </div>
-          </div>
-        </div>
-        <Divider></Divider>
-        {this.state.loading ? (
-          <Skeleton active></Skeleton>
-        ) : (
+        {this.state.isAccessible ? (
           <>
-            <TableContent
-              id="displayTable"
-              columns={this.state.columns}
-              data={this.state.data}
-            ></TableContent>
+            <div className="tableHeader">
+              <div className="table_name">My Tables/{this.state.tableName}</div>
 
-            <div className="my_tablefooter">
-              <SubjectModal history={this.props.history}></SubjectModal>
-              <Link to={`/editTable/${this.state.tableId}`}>
-                <div className="edit_btn">
-                  <MyButton
-                    text="Edit"
-                    style={{ borderRadius: "10px" }}
-                  ></MyButton>
+              <div className="date">
+                <FontAwesomeIcon icon={faCalendar}></FontAwesomeIcon>
+
+                <div>
+                  {moment().format(dateToFormat)}
+                  {/* {d.getDate()}-{d.getMonth() + 1}-{d.getFullYear()} */}
                 </div>
-              </Link>
+                <div id="bar"></div>
+                <div style={{ width: "90px", display: "flex" }}>
+                  <FontAwesomeIcon icon={faClock}></FontAwesomeIcon>
+                  <div>{this.state.curTime}</div>
+                </div>
+              </div>
             </div>
+            <Divider></Divider>
+            {this.state.loading ? (
+              <Skeleton active></Skeleton>
+            ) : (
+              <>
+                <TableContent
+                  id="displayTable"
+                  columns={this.state.columns}
+                  data={this.state.data}
+                ></TableContent>
+
+                <div className="my_tablefooter">
+                  <SubjectModal history={this.props.history}></SubjectModal>
+                  <Link to={`/editTable/${this.state.tableId}`}>
+                    <div className="edit_btn">
+                      <MyButton
+                        text="Edit"
+                        style={{ borderRadius: "10px" }}
+                      ></MyButton>
+                    </div>
+                  </Link>
+                </div>
+              </>
+            )}
           </>
+        ) : (
+          <div className="inaccessibe_wrapper">
+            <div className="oops">Oops!</div>
+            <div className="inaccess_header">
+              This table is inaccessible to you
+            </div>
+            <div>Make an access request to the owner of this table</div>
+            <Button
+              style={{
+                textAlign: "center",
+                marginTop: "25px",
+                backgroundColor: "black",
+                color: "white",
+                fontSize: "1.1em",
+                fontWeight: "bold",
+                borderRadius: "10px",
+                border: "1px solid black",
+              }}
+              disabled={this.state.isButtonDisabled}
+              loading={this.state.makeRequestLoading}
+              className="access_button"
+              onClick={this.handleMakeRequest}
+            >
+              Make Request
+            </Button>
+          </div>
         )}
       </div>
     );
