@@ -6,6 +6,7 @@ import {
   faCalendar,
   faClock,
   faSpinner,
+  faShare,
 } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import { axiosInstance } from "../../utils/axiosInterceptor.js";
@@ -13,7 +14,7 @@ import { Divider, Button, Space, message, Skeleton } from "antd";
 import { Link } from "react-router-dom";
 import "./MyTables.css";
 import SubjectModal from "./SubjectModal.js";
-
+import ShareModal from "./ShareModal.js";
 const days = [
   "Monday",
   "Tuesday",
@@ -32,6 +33,7 @@ class MyTables extends Component {
       loading: false,
       columns: [],
       data: [],
+      pathLink: null,
       tableId: null,
       isAccessible: true,
       makeRequestLoading: false,
@@ -76,6 +78,7 @@ class MyTables extends Component {
     }, 1000);
   };
   componentDidMount() {
+    let path = `http://localhost:3006/${this.props.history.location.pathname}`;
     this.clock();
     setInterval(this.clock, 1000);
     console.log("asdsad");
@@ -172,13 +175,20 @@ class MyTables extends Component {
   }
   render() {
     const d = new Date();
-    const dateToFormat = "dddd, MMMM Do YYYY";
+    // const dateToFormat = "dddd, MMMM Do YYYY";
+    const dateToFormat = "ddd-DD/MM/yyyy";
+
     return (
       <div className="wrapper">
         {this.state.isAccessible ? (
           <>
             <div className="tableHeader">
-              <div className="table_name">My Tables/{this.state.tableName}</div>
+              <div className="table_name">
+                My Tables/{this.state.tableName}{" "}
+                <ShareModal
+                  pathname={`http://localhost:3006${this.props.history.location.pathname}`}
+                />
+              </div>
 
               <div className="date">
                 <FontAwesomeIcon icon={faCalendar}></FontAwesomeIcon>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Link, Switch, BrowserRouter } from "react-router-dom";
+import { Route, Link, Switch, BrowserRouter, Redirect } from "react-router-dom";
 import logo from "./assests/clock2.png";
 import Login from "./Pages/Login/Login";
 import MainDashboard from "./Dashboards/MainDashboard/MainDashboard";
@@ -19,6 +19,7 @@ class App extends Component {
   toggleLoggedIn() {
     this.setState({ ...this.state, isLoggedin: !this.state.isLoggedin });
   }
+
   componentDidMount() {
     const token = localStorage.getItem("token");
 
@@ -44,6 +45,23 @@ class App extends Component {
     }
   }
   render() {
+    const NoMatch = (props) => {
+      // setTimeout(() => {
+      //   props.history.push("/");
+      // }, 2000);
+
+      return (
+        <>
+          <h1 style={{ textAlign: "center", paddingTop: "10px" }}>
+            You are not logged in to Real Time Tables.Please login to continue.
+          </h1>
+          <div style={{ textAlign: "center" }}>
+            <a href="/">Click here to move to home page</a>
+          </div>
+        </>
+      );
+    };
+    const NoMatch2 = () => <p>Oops nothing found</p>;
     if (!this.state.isLoggedin) {
       return (
         <BrowserRouter>
@@ -65,6 +83,12 @@ class App extends Component {
               history={this.props.history}
               render={(props) => <SignUp history={props.history}></SignUp>}
             ></Route>
+            <Route
+              path="*"
+              component={(props) => {
+                return <NoMatch history={props.history}></NoMatch>;
+              }}
+            />
           </Switch>
         </BrowserRouter>
       );

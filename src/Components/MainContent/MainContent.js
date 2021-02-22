@@ -55,6 +55,12 @@ class MainContent extends Component {
               return <EditTables history={this.props.history}></EditTables>;
             }}
           ></Route>
+          <Route
+            path="*"
+            component={() => {
+              return <h1>AW SNAP!</h1>;
+            }}
+          />
         </Switch>
       </Content>
     );

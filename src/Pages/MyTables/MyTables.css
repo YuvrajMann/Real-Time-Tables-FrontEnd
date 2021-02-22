@@ -128,3 +128,56 @@
 .oops {
   font-size: 3em;
 }
+.share_btn {
+  background-color: #f05454fd;
+  /* width: 35%;
+  width: 60%; */
+  display: inline-block;
+  text-align: center;
+  margin-left: 5px;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 5px;
+  /* margin-top: 10px; */
+}
+.share_btn:hover {
+  color: #f05454;
+  background-color: white;
+  box-shadow: 0px 0px 3px 1px rgba(255, 0, 0, 0.76);
+}
+.share_header {
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+.copy {
+  text-align: center;
+  margin-top: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.521);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  /* border-radius: 5px; */
+}
+#copy_icon {
+  /* margin-left: 4px; */
+  text-align: center;
+  border-left: 1px solid black;
+  padding-left: 15px;
+
+  font-size: 20px;
+}
+#copy_icon svg {
+  cursor: pointer;
+}
+#copy_icon svg:hover {
+  color: green;
+}
+.share_footer {
+  margin-top: 20px;
+  color: #f05454;
+  text-align: center;
+}

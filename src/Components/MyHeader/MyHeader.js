@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Layout, Tooltip, message } from "antd";
+import { Layout, Tooltip, message, notification } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheck,
@@ -7,6 +7,8 @@ import {
   faShareAlt,
   faEllipsisH,
   faSignOutAlt,
+  faBell,
+  faBellOn,
 } from "@fortawesome/free-solid-svg-icons";
 import "./MyHeader.css";
 import { axiosInstance } from "../../utils/axiosInterceptor.js";
@@ -53,7 +55,7 @@ class MyHeader extends Component {
 
             <div></div>
             <Tooltip title="Share">
-              <FontAwesomeIcon icon={faShareAlt}></FontAwesomeIcon>
+              <FontAwesomeIcon icon={faBell}></FontAwesomeIcon>
             </Tooltip>
 
             <div></div>
