@@ -1,0 +1,33 @@
+.notification {
+  display: flex;
+  flex-direction: column;
+  /* padding-lef: 10px; */
+  padding: 10px;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.116);
+}
+.notification_wrapper {
+  max-height: 60vh;
+  padding-right: 0px;
+  margin-right: -14px;
+  overflow-y: auto;
+}
+.notification_wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+.notification_wrapper::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.041);
+}
+.notification_wrapper::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.301);
+  border-radius: 10px;
+}
+.notification::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.548);
+}
+.access_btn {
+  margin-top: 10px;
+}

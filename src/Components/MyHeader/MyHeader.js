@@ -11,10 +11,12 @@ import {
   faBellOn,
 } from "@fortawesome/free-solid-svg-icons";
 import "./MyHeader.css";
-import { axiosInstance } from "../../utils/axiosInterceptor.js";
+
 import Spinner from "../Spinner/Spinner";
 import SiteLogo from "../../assests/clock1.svg";
 import UserDisplay from "../UseDisplay/UserDisplay";
+import NotificationPopover from "../Notification/NotificationPopover";
+
 const { Header } = Layout;
 class MyHeader extends Component {
   constructor(props) {
@@ -49,16 +51,15 @@ class MyHeader extends Component {
             </div>
             <div>Real Time Tables</div>
           </div>
+
           <div className="options">
-            <div></div>
+            <div className="rod"></div>
+            <NotificationPopover></NotificationPopover>
+            <div className="rod"></div>
             <UserDisplay></UserDisplay>
 
-            <div></div>
-            <Tooltip title="Share">
-              <FontAwesomeIcon icon={faBell}></FontAwesomeIcon>
-            </Tooltip>
+            <div className="rod"></div>
 
-            <div></div>
             <Tooltip title="Logout">
               <FontAwesomeIcon
                 icon={faSignOutAlt}

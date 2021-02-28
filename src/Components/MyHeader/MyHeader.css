@@ -27,7 +27,7 @@
 .options {
   display: flex;
   flex-direction: row;
-  width: 9vw;
+  /* width: 9vw; */
   align-items: center;
   align-content: center;
   justify-content: space-between;
@@ -38,10 +38,10 @@
 .options svg:hover {
   color: #f05454;
 }
-
-.options > div {
-  background-color: rgba(0, 0, 0, 0.274);
+.options .rod {
+  background-color: rgba(0, 0, 0, 0.11);
   width: 1px;
   height: 64px;
-  margin-right: 4px;
+  margin-right: 15px;
+  margin-left: 15px;
 }
