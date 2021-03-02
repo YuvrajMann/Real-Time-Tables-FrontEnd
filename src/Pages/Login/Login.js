@@ -108,13 +108,6 @@ class Login extends Component {
           </div>
           <div className="links">
             <div>About</div>
-            {/* <Link to="/signUp">
-              <MyButton
-                text="Sign Up"
-                id="signup_btn1"
-                style={{ width: "90px", height: "40px", borderRadius: "20px" }}
-              ></MyButton>
-            </Link> */}
           </div>
         </div>
         <div className="logincontent">
@@ -164,6 +157,11 @@ class Login extends Component {
             >
               <Input.Password
                 placeholder="password"
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    this.handleLogin();
+                  }
+                }}
                 id="my_pass"
                 onChange={(event) => {
                   this.setState({
@@ -185,17 +183,12 @@ class Login extends Component {
                 loading={this.state.btnLoading}
               ></MyButton>
             </div>
-            <Link to="/signUp">
-              <div className="signup_btn">
-                <MyButton
-                  text="Sign Up"
-                  loading={false}
-                  style={{
-                    width: "100%",
-                  }}
-                ></MyButton>
-              </div>
-            </Link>
+            <div className="signup_btn">
+              Don't have an account?{" "}
+              <Link to="/signUp">
+                <u>SignUp</u>
+              </Link>
+            </div>
           </div>
         </div>
         <div className="loginfooter">

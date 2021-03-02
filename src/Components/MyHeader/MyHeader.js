@@ -10,6 +10,8 @@ import {
   faBell,
   faBellOn,
 } from "@fortawesome/free-solid-svg-icons";
+import { UserOutlined } from "@ant-design/icons";
+
 import "./MyHeader.css";
 
 import Spinner from "../Spinner/Spinner";

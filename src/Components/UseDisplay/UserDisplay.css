@@ -1,0 +1,25 @@
+.profile_header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+}
+.view_profile {
+  width: 130px;
+}
+.user_name {
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.view_profile_btn {
+  text-align: center;
+  margin-top: 10px;
+  background-color: rgba(0, 0, 0, 0.658);
+  border-radius: 10px;
+  color: white;
+}
+.view_profile_btn:hover {
+  background-color: rgba(0, 0, 0, 0.678);
+  cursor: pointer;
+}

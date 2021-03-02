@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { Popover } from "antd";
+import { Popover, Avatar, Image } from "antd";
 import { axiosInstance } from "../../utils/axiosInterceptor.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, message } from "antd";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import Spinner from "../Spinner/Spinner";
+import "./UserDisplay.css";
+
 class UserDisplay extends Component {
   constructor(props) {
     super(props);
@@ -47,14 +49,53 @@ class UserDisplay extends Component {
     if (this.state.loading) {
       return <Spinner></Spinner>;
     } else if (this.state.userData) {
-      return <h3>{this.state.userData.username}</h3>;
+      return (
+        <div className="view_profile">
+          <div className="profile_header">
+            <Avatar
+              size={40}
+              src={
+                <Image
+                  src={
+                    this.state.userData &&
+                    this.state.userData.hasOwnProperty("profilePic") &&
+                    this.state.userData.profilePic ? (
+                      `https://localhost:3433/${this.state.userData.profilePic}`
+                    ) : (
+                      <>H</>
+                    )
+                  }
+                ></Image>
+              }
+            ></Avatar>
+            <div className="user_name">{this.state.userData.username}</div>
+          </div>
+          <div className="view_profile_btn"> View Profile</div>
+        </div>
+      );
     }
   };
   render() {
+    console.log(this.state.userData);
     const content = this.content();
     return (
       <Popover content={content} trigger="click">
-        <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+        <Avatar
+          style={{
+            color: "#f05454",
+            backgroundColor: "#f0545473",
+            cursor: "pointer",
+          }}
+          src={
+            this.state.userData &&
+            this.state.userData.hasOwnProperty("profilePic") &&
+            this.state.userData.profilePic ? (
+              `https://localhost:3433/${this.state.userData.profilePic}`
+            ) : (
+              <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+            )
+          }
+        ></Avatar>
       </Popover>
     );
   }
