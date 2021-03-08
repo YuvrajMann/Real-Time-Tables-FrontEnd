@@ -6,6 +6,7 @@ import { Button, message } from "antd";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import Spinner from "../Spinner/Spinner";
 import "./UserDisplay.css";
+import { Link } from "react-router-dom";
 
 class UserDisplay extends Component {
   constructor(props) {
@@ -70,7 +71,9 @@ class UserDisplay extends Component {
             ></Avatar>
             <div className="user_name">{this.state.userData.username}</div>
           </div>
-          <div className="view_profile_btn"> View Profile</div>
+          <Link to={`/viewUser`}>
+            <div className="view_profile_btn"> View Profile</div>
+          </Link>
         </div>
       );
     }
