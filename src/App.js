@@ -25,7 +25,7 @@ class App extends Component {
 
     if (token) {
       axios
-        .get("https://localhost:3433/users/checkJWTToken", {
+        .get("https://floating-cove-15620.herokuapp.com/users/checkJWTToken", {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
