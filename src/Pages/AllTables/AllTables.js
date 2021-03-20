@@ -57,26 +57,25 @@ class AllTables extends Component {
   }
   fetchAllTables() {
     this.setState({ ...this.state, loading: true });
-    setTimeout(() => {
-      axiosInstance
-        .get("/table")
-        .then((res) => {
-          console.log(res);
-          this.setState({
-            ...this.state,
-            tables: res.data.results,
-            loading: false,
-          });
-        })
-        .catch((err) => {
-          this.setState({
-            ...this.state,
-            loading: false,
-          });
-          console.log(err);
-          message.warn(err.message);
+
+    axiosInstance
+      .get("/table")
+      .then((res) => {
+        console.log(res);
+        this.setState({
+          ...this.state,
+          tables: res.data.results,
+          loading: false,
         });
-    }, 2000);
+      })
+      .catch((err) => {
+        this.setState({
+          ...this.state,
+          loading: false,
+        });
+        console.log(err);
+        message.warn(err.message);
+      });
   }
   componentDidMount() {
     this.fetchAllTables();

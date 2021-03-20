@@ -69,7 +69,7 @@ class UserDisplay extends Component {
                 ></Image>
               }
             ></Avatar>
-            <div className="user_name">{this.state.userData.username}</div>
+            <div className="user_name_view">{this.state.userData.username}</div>
           </div>
           <Link to={`/viewUser`}>
             <div className="view_profile_btn"> View Profile</div>

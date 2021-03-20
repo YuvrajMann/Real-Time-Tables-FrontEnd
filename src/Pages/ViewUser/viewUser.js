@@ -3,6 +3,7 @@ import { Skeleton, message, Avatar, Image, Button, Modal } from "antd";
 import "./viewUser.css";
 import { axiosInstance } from "../../utils/axiosInterceptor";
 import { UserOutlined, EditFilled } from "@ant-design/icons";
+import EditProfile from "./EditProfileModal";
 import UploadModal from "./uploadModal.js";
 class ViewUser extends Component {
   constructor(props) {
@@ -14,28 +15,41 @@ class ViewUser extends Component {
       deleteBtnLoading: false,
     };
     this.onProfileDelte = this.onProfileDelte.bind(this);
+    this.fetchUserDetails = this.fetchUserDetails.bind(this);
+    this.formRef = React.createRef();
+  }
+  fetchUserDetails() {
+    setTimeout(() => {
+      this.setState({
+        ...this.state,
+        loading: true,
+        userData: null,
+      });
+      axiosInstance
+        .get("/users")
+        .then((res) => {
+          this.setState(
+            {
+              ...this.state,
+              loading: false,
+              userData: res.data,
+            },
+            () => {
+              const userData = this.state.userData;
+            }
+          );
+        })
+        .catch((err) => {
+          message.err(err.message);
+          this.setState({
+            ...this.state,
+            loading: false,
+          });
+        });
+    }, 2000);
   }
   componentDidMount() {
-    this.setState({
-      ...this.state,
-      loading: true,
-    });
-    axiosInstance
-      .get("/users")
-      .then((res) => {
-        this.setState({
-          ...this.state,
-          loading: false,
-          userData: res.data,
-        });
-      })
-      .catch((err) => {
-        message.err(err.message);
-        this.setState({
-          ...this.state,
-          loading: false,
-        });
-      });
+    this.fetchUserDetails();
   }
   onProfileDelte() {
     this.setState({ ...this.state, deleteBtnLoading: true }, () => {
@@ -126,7 +140,7 @@ class ViewUser extends Component {
               ) : (
                 <>
                   <Avatar
-                    size={200}
+                    size={270}
                     style={{ color: "#f56a00", backgroundColor: "#fde3cf" }}
                   >
                     <UserOutlined
@@ -142,14 +156,16 @@ class ViewUser extends Component {
               )}
               <div className="action_btns">
                 <div className="profile_upload_btn">
-                  <UploadModal></UploadModal>
+                  <UploadModal
+                    fetchUserDetails={this.fetchUserDetails}
+                  ></UploadModal>
                 </div>
                 <div className="remove_profile_btn">
                   <Button
                     style={{
-                      border: "1px solid black",
-                      background: "rgba(0, 0, 0, 0.8)",
-                      color: "white",
+                      border: "1px solid #f05454",
+                      background: "white",
+                      color: "#f05454",
                       fontWeight: "600",
                       borderRadius: "7px",
                     }}
@@ -226,18 +242,10 @@ class ViewUser extends Component {
                   <></>
                 )}
               </div>
-              <Button
-                style={{
-                  border: "1px solid black",
-                  background: "rgba(0, 0, 0, 0.8)",
-                  color: "white",
-                  fontWeight: "600",
-                  borderRadius: "4px",
-                  marginTop: "20px",
-                }}
-              >
-                <EditFilled></EditFilled> Edit Profile
-              </Button>
+              <EditProfile
+                userData={this.state.userData}
+                formRef={this.formRef}
+              ></EditProfile>
             </div>
           </div>
         ) : (

@@ -75,20 +75,19 @@ class EditTable extends Component {
     update["tableName"] = this.state.tableName;
     console.log(update);
     this.setState({ ...this.state, btnLoading: true });
-    setTimeout(() => {
-      axiosInstance
-        .put(`/table/${tableId}`, update)
-        .then((res) => {
-          message.success("Table update successfully");
-          this.setState({ ...this.state, btnLoading: false }, () => {
-            this.props.history.push(`/tables/${tableId}`);
-          });
-        })
-        .catch((err) => {
-          this.setState({ ...this.state, btnLoading: false });
-          message.warn(err.message);
+
+    axiosInstance
+      .put(`/table/${tableId}`, update)
+      .then((res) => {
+        message.success("Table update successfully");
+        this.setState({ ...this.state, btnLoading: false }, () => {
+          this.props.history.push(`/tables/${tableId}`);
         });
-    }, 2000);
+      })
+      .catch((err) => {
+        this.setState({ ...this.state, btnLoading: false });
+        message.warn(err.message);
+      });
   }
   createColumns(periods) {
     var columns = [];

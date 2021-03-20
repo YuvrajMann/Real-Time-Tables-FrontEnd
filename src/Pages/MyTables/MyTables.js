@@ -45,37 +45,36 @@ class MyTables extends Component {
   fetchTableDetails = () => {
     const tableId = this.props.history.location.pathname.split("/")[2];
     this.setState({ ...this.state, loading: true });
-    setTimeout(() => {
-      axiosInstance
-        .get(`/table/${tableId}`)
-        .then((table) => {
-          this.setState({ ...this.state, isAccessible: true });
-          console.log(table);
-          this.createColumns(table.data.periods);
-          this.createData(table.data.table);
-          this.setState({
-            ...this.state,
-            tableName: table.data.tableName,
-            tableId: tableId,
-            loading: false,
-          });
-        })
-        .catch((err) => {
-          console.log(err.response.status);
-          if (err.response.status == 403) {
-            this.setState({ ...this.state, isAccessible: false });
-            message.warn("You are forbidden to access this table!");
-          }
-          if (err.message) {
-            console.log(err.message);
-          }
-          this.setState({
-            ...this.state,
 
-            loading: false,
-          });
+    axiosInstance
+      .get(`/table/${tableId}`)
+      .then((table) => {
+        this.setState({ ...this.state, isAccessible: true });
+        console.log(table);
+        this.createColumns(table.data.periods);
+        this.createData(table.data.table);
+        this.setState({
+          ...this.state,
+          tableName: table.data.tableName,
+          tableId: tableId,
+          loading: false,
         });
-    }, 1000);
+      })
+      .catch((err) => {
+        console.log(err.response.status);
+        if (err.response.status == 403) {
+          this.setState({ ...this.state, isAccessible: false });
+          message.warn("You are forbidden to access this table!");
+        }
+        if (err.message) {
+          console.log(err.message);
+        }
+        this.setState({
+          ...this.state,
+
+          loading: false,
+        });
+      });
   };
   componentDidMount() {
     let path = `http://localhost:3006/${this.props.history.location.pathname}`;
@@ -147,31 +146,30 @@ class MyTables extends Component {
       ...this.state,
       makeRequestLoading: true,
     });
-    setTimeout(() => {
-      axiosInstance
-        .post(`https://localhost:3433/access/accessRequest/${tableId}`, {
-          access_request: "View",
-        })
-        .then((res) => {
-          console.log(res.data);
-          message.success("Request sent successfully!");
-          this.setState({
-            ...this.state,
-            makeRequestLoading: false,
-            isButtonDisabled: true,
-          });
-        })
-        .catch((err) => {
-          this.setState({
-            ...this.state,
-            makeRequestLoading: false,
-          });
-          message.warn("Failed to make access request");
-          if (err.message) {
-            console.log(err.message);
-          }
+
+    axiosInstance
+      .post(`https://localhost:3433/access/accessRequest/${tableId}`, {
+        access_request: "View",
+      })
+      .then((res) => {
+        console.log(res.data);
+        message.success("Request sent successfully!");
+        this.setState({
+          ...this.state,
+          makeRequestLoading: false,
+          isButtonDisabled: true,
         });
-    }, 2000);
+      })
+      .catch((err) => {
+        this.setState({
+          ...this.state,
+          makeRequestLoading: false,
+        });
+        message.warn("Failed to make access request");
+        if (err.message) {
+          console.log(err.message);
+        }
+      });
   }
   render() {
     const d = new Date();

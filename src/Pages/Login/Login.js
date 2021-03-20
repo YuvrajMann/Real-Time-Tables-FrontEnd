@@ -44,37 +44,35 @@ class Login extends Component {
           btnLoading: true,
         },
         () => {
-          setTimeout(() => {
-            axios
-              .post("https://localhost:3433/users/login", {
-                username: username,
-                password: password,
-              })
-              .then((res) => {
-                this.setState({
-                  ...this.state,
-                  btnLoading: false,
-                });
-                const token = res.data.token;
-                if (token) {
-                  axiosInstance.interceptors.request.use((config) => {
-                    config.headers.Authorization = "Bearer " + token;
-                    return config;
-                  });
-                  localStorage.setItem("token", token);
-                  message.success("Successfully logged in");
-                  this.props.toggleLoggedIn();
-                }
-                console.log(res);
-              })
-              .catch((err) => {
-                this.setState({
-                  ...this.state,
-                  btnLoading: false,
-                });
-                console.log(err);
+          axios
+            .post("https://localhost:3433/users/login", {
+              username: username,
+              password: password,
+            })
+            .then((res) => {
+              this.setState({
+                ...this.state,
+                btnLoading: false,
               });
-          }, 2000);
+              const token = res.data.token;
+              if (token) {
+                axiosInstance.interceptors.request.use((config) => {
+                  config.headers.Authorization = "Bearer " + token;
+                  return config;
+                });
+                localStorage.setItem("token", token);
+                message.success("Successfully logged in");
+                this.props.toggleLoggedIn();
+              }
+              console.log(res);
+            })
+            .catch((err) => {
+              this.setState({
+                ...this.state,
+                btnLoading: false,
+              });
+              console.log(err);
+            });
         }
       );
     } else if (

@@ -86,28 +86,26 @@ class SignUp extends Component {
     ) {
       console.log(e);
       this.setState({ ...this.state, btnLoading: true });
-      setTimeout(() => {
-        axiosInstance
-          .post("/users/signup", { ...e })
-          .then((res) => {
-            this.setState({ ...this.state, btnLoading: false }, () => {
-              console.log(res);
-              this.props.history.push("/");
-              message.success("Successfully Signed Up");
-            });
-          })
-          .catch((err) => {
-            var error = err.response;
-            if (error) {
-              this.setState({ ...this.state, btnLoading: false });
-              message.warn(error.data.err.message);
-            } else {
-              this.setState({ ...this.state, btnLoading: false });
-              console.log(err);
-              message.warn(err.message);
-            }
+      axiosInstance
+        .post("/users/signup", { ...e })
+        .then((res) => {
+          this.setState({ ...this.state, btnLoading: false }, () => {
+            console.log(res);
+            this.props.history.push("/");
+            message.success("Successfully Signed Up");
           });
-      }, 2000);
+        })
+        .catch((err) => {
+          var error = err.response;
+          if (error) {
+            this.setState({ ...this.state, btnLoading: false });
+            message.warn(error.data.err.message);
+          } else {
+            this.setState({ ...this.state, btnLoading: false });
+            console.log(err);
+            message.warn(err.message);
+          }
+        });
     } else if (this.state.userName.validateStatus == "error") {
       message.warn("Enter a valid password!");
     } else if (this.state.email.validateStatus == "error") {

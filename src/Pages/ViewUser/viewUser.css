@@ -1,7 +1,6 @@
 .user_wrapper {
   background-color: white;
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding: 50px;
   border-radius: 20px;
 }
 .cover_user {
@@ -32,7 +31,7 @@
 }
 .divider {
   width: 2px;
-  background-color: rgba(0, 0, 0, 0.877);
+  background-color: #f054546b;
   padding-top: 0px;
   margin-top: -50px;
   margin-bottom: -50px;
@@ -70,4 +69,10 @@ div.ant-modal-footer {
 .action_upload_btns {
   text-align: center;
   margin-top: 20px;
+}
+.edit_form_header {
+  font-size: 1.5em;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 20px;
 }

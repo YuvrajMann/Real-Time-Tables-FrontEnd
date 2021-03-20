@@ -20,24 +20,23 @@ class SubjectModal extends Component {
       loading: true,
     });
     const tableId = this.props.history.location.pathname.split("/")[2];
-    setTimeout(() => {
-      axiosInstance
-        .get(`/table/${tableId}/subjects`)
-        .then((res) => {
-          this.setState({
-            ...this.state,
-            loading: false,
-            subjectData: res.data,
-          });
-        })
-        .catch((err) => {
-          message.warn(err.message);
-          this.setState({
-            ...this.state,
-            loading: false,
-          });
+
+    axiosInstance
+      .get(`/table/${tableId}/subjects`)
+      .then((res) => {
+        this.setState({
+          ...this.state,
+          loading: false,
+          subjectData: res.data,
         });
-    }, 1000);
+      })
+      .catch((err) => {
+        message.warn(err.message);
+        this.setState({
+          ...this.state,
+          loading: false,
+        });
+      });
   }
   render() {
     return (

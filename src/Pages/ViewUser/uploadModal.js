@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Button, Modal } from "antd";
+import { Button, message, Modal } from "antd";
 import Dropzone from "react-dropzone";
 import { UploadOutlined } from "@ant-design/icons";
+import { axiosInstance } from "../../utils/axiosInterceptor";
 
 class UploadModal extends Component {
   constructor(props) {
@@ -9,10 +10,57 @@ class UploadModal extends Component {
     this.state = {
       isModalVisible: false,
       files: [],
+      upload_button_loading: false,
     };
     this.onDrop = (files) => {
       this.setState({ files });
     };
+    this.onUpload = this.onUpload.bind(this);
+  }
+  onUpload() {
+    var formData = new FormData();
+    var imagefile = this.state.files;
+    formData.append("profile", imagefile[0]);
+
+    this.setState(
+      {
+        ...this.state,
+        upload_button_loading: true,
+      },
+      () => {
+        axiosInstance
+          .post("/upload/profilePic", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((res) => {
+            this.setState(
+              {
+                ...this.state,
+                upload_button_loading: false,
+                isModalVisible: false,
+              },
+              () => {
+                this.props.fetchUserDetails();
+                message.success(
+                  "Profile updated successfully!Please reload to view changes!"
+                );
+              }
+            );
+
+            console.log(res);
+          })
+          .catch((err) => {
+            this.setState({
+              ...this.state,
+              upload_button_loading: false,
+            });
+            console.log(err.message);
+            message.warn("Failed to update profile pic");
+          });
+      }
+    );
   }
   render() {
     console.log(this.state.files);
@@ -34,7 +82,7 @@ class UploadModal extends Component {
             {({ getRootProps, getInputProps }) => (
               <section className="container">
                 <div {...getRootProps({ className: "dropzone" })}>
-                  <input {...getInputProps()} />
+                  <input {...getInputProps()} accept="image/*" />
                   <div>
                     <UploadOutlined></UploadOutlined>
                     <div>
@@ -44,7 +92,6 @@ class UploadModal extends Component {
                 </div>
                 <aside>
                   <div style={{ textAlign: "center", marginTop: "10px" }}>
-                    {" "}
                     {files}
                   </div>
                 </aside>
@@ -62,6 +109,10 @@ class UploadModal extends Component {
                 fontWeight: 600,
                 loading: false,
               }}
+              loading={this.state.upload_button_loading}
+              onClick={() => {
+                this.onUpload();
+              }}
             >
               Upadte
             </Button>
@@ -75,6 +126,12 @@ class UploadModal extends Component {
                 fontWeight: 600,
                 loading: false,
               }}
+              onClick={() => {
+                this.setState({
+                  ...this.state,
+                  isModalVisible: false,
+                });
+              }}
             >
               Cancel
             </Button>
@@ -82,9 +139,9 @@ class UploadModal extends Component {
         </Modal>
         <Button
           style={{
-            border: "1px solid black",
-            background: "rgba(0, 0, 0, 0.8)",
-            color: "white",
+            border: "1px solid #f05454",
+            background: "white",
+            color: "#f05454",
             fontWeight: "600",
             borderRadius: "7px",
             marginRight: "10px",
