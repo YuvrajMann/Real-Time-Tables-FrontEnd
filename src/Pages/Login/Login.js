@@ -54,16 +54,16 @@ class Login extends Component {
                 ...this.state,
                 btnLoading: false,
               });
-              const token = res.data.token;
-              if (token) {
-                axiosInstance.interceptors.request.use((config) => {
-                  config.headers.Authorization = "Bearer " + token;
-                  return config;
-                });
-                localStorage.setItem("token", token);
-                message.success("Successfully logged in");
-                this.props.toggleLoggedIn();
-              }
+              const newToken = res.data.token;
+              axiosInstance.interceptors.request.use((config) => {
+                const auth = `Bearer ${newToken}`;
+                console.log(auth);
+                config.headers.Authorization = `Bearer ${newToken}`;
+                return config;
+              });
+              localStorage.setItem("token", newToken);
+              this.props.toggleLoggedIn();
+              message.success("Successfully logged in");
               console.log(res);
             })
             .catch((err) => {

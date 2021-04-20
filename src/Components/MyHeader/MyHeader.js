@@ -11,7 +11,7 @@ import {
   faBellOn,
 } from "@fortawesome/free-solid-svg-icons";
 import { UserOutlined } from "@ant-design/icons";
-
+import { axiosInstance } from "../../utils/axiosInterceptor";
 import "./MyHeader.css";
 
 import Spinner from "../Spinner/Spinner";
@@ -31,7 +31,11 @@ class MyHeader extends Component {
   logout = () => {
     console.log(this.props.history);
     this.props.history.push("/");
-    localStorage.removeItem("token");
+    localStorage.setItem("token", null);
+    axiosInstance.interceptors.request.use((config) => {
+      config.headers.Authorization = null;
+      return config;
+    });
     this.props.toggleLoggedIn();
     message.success("Successfully logged out");
   };

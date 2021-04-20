@@ -53,3 +53,8 @@
   flex-direction: column;
   justify-content: flex-end;
 } */
+.inaccessibe_wrapper {
+  background-color: white;
+  padding: 40px;
+  border-radius: 30px;
+}
