@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { message, Button, Tooltip, Popover, Skeleton } from "antd";
+import {
+  message,
+  Button,
+  Tooltip,
+  Popover,
+  Skeleton,
+  notification,
+} from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import { axiosInstance } from "../../utils/axiosInterceptor.js";
@@ -14,7 +21,7 @@ class NotificationPopover extends Component {
     };
     this.giveAccess = this.giveAccess.bind(this);
   }
-  giveAccess(user, table, access_type) {
+  giveAccess(user, table, access_type, notificationId) {
     this.setState({
       ...this.state,
       loading: true,
@@ -22,9 +29,10 @@ class NotificationPopover extends Component {
     setTimeout(() => {
       axiosInstance
         .post("/access/approveRequest", {
-          user: [user],
-          table: [table],
-          access_type: [access_type],
+          user: user,
+          table: table,
+          access_type: access_type,
+          notification_id: notificationId,
         })
         .then((res) => {
           console.log(res);
@@ -34,13 +42,24 @@ class NotificationPopover extends Component {
           });
           message.success("Access given successfully!");
         })
-        .catch((err) => {
+        .catch((error) => {
           this.setState({
             ...this.state,
             loading: false,
           });
-          console.log(err.message);
-          message.warn(err.message);
+          if (error.response) {
+            // Request made and server responded
+            console.log(error.response.data);
+            message.warn(error.response.data.error);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          } else if (error.request) {
+            // The request was made but no response was received
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log("Error", error.message);
+          }
         });
     }, 2000);
   }
@@ -99,7 +118,8 @@ class NotificationPopover extends Component {
                       this.giveAccess(
                         notification.from_user,
                         notification.table,
-                        notification.access_request
+                        notification.access_request,
+                        notification._id
                       );
                     }}
                   >

@@ -22,27 +22,35 @@ class App extends Component {
 
   componentDidMount() {
     const token = localStorage.getItem("token");
-
     if (token) {
-      axios
-        .get("https://floating-cove-15620.herokuapp.com/users/checkJWTToken", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((res) => {
-          console.log(res);
-          axiosInstance.interceptors.request.use((config) => {
-            const auth = `Bearer ${token}`;
-            console.log(auth);
-            config.headers.Authorization = `Bearer ${token}`;
-            return config;
-          });
-          this.toggleLoggedIn();
-        })
-        .catch((err) => {
-          console.log(err);
-          message.warn("Invalid token");
-        });
+      axiosInstance.interceptors.request.use((config) => {
+        const auth = `Bearer ${token}`;
+        console.log(auth);
+        config.headers.Authorization = `Bearer ${token}`;
+        return config;
+      });
     }
+    this.toggleLoggedIn();
+    // if (token) {
+    //   axios
+    //     .get("https://localhost:3433/users/checkJWTToken", {
+    //       headers: { Authorization: `Bearer ${token}` },
+    //     })
+    //     .then((res) => {
+    //       console.log(res);
+    //       axiosInstance.interceptors.request.use((config) => {
+    //         const auth = `Bearer ${token}`;
+    //         console.log(auth);
+    //         config.headers.Authorization = `Bearer ${token}`;
+    //         return config;
+    //       });
+    //       this.toggleLoggedIn();
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //       message.warn("Invalid token");
+    //     });
+    // }
   }
   render() {
     const NoMatch = (props) => {

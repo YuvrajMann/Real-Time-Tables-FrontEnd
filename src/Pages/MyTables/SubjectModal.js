@@ -135,6 +135,7 @@ class SubjectModal extends Component {
               borderRadius: "10px",
               width: "100px",
               marginRight: "10px",
+              marginTop: "19px",
             }}
           ></MyButton>
         </div>

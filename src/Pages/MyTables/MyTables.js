@@ -15,6 +15,8 @@ import { Link } from "react-router-dom";
 import "./MyTables.css";
 import SubjectModal from "./SubjectModal.js";
 import ShareModal from "./ShareModal.js";
+import OwnershipDisplay from "./OwnershipDisplay.js";
+
 const days = [
   "Monday",
   "Tuesday",
@@ -38,6 +40,9 @@ class MyTables extends Component {
       isAccessible: true,
       makeRequestLoading: false,
       isButtonDisabled: false,
+      owner: null,
+      viewers: null,
+      editors: null,
     };
     this.clock = this.clock.bind(this);
     this.handleMakeRequest = this.handleMakeRequest.bind(this);
@@ -58,6 +63,9 @@ class MyTables extends Component {
           tableName: table.data.tableName,
           tableId: tableId,
           loading: false,
+          owner: table.data.user,
+          viewers: table.data.view_access,
+          editors: table.data.edit_access,
         });
       })
       .catch((err) => {
@@ -214,15 +222,31 @@ class MyTables extends Component {
                 ></TableContent>
 
                 <div className="my_tablefooter">
-                  <SubjectModal history={this.props.history}></SubjectModal>
-                  <Link to={`/editTable/${this.state.tableId}`}>
-                    <div className="edit_btn">
-                      <MyButton
-                        text="Edit"
-                        style={{ borderRadius: "10px" }}
-                      ></MyButton>
-                    </div>
-                  </Link>
+                  <div className="ownership_info">
+                    <OwnershipDisplay
+                      type="owner"
+                      owner={this.state.owner}
+                    ></OwnershipDisplay>
+                    <OwnershipDisplay
+                      type="viewer"
+                      viewers={this.state.viewers}
+                    ></OwnershipDisplay>
+                    <OwnershipDisplay
+                      type="editor"
+                      editors={this.state.editors}
+                    ></OwnershipDisplay>
+                  </div>
+                  <div className="option_aval">
+                    <SubjectModal history={this.props.history}></SubjectModal>
+                    <Link to={`/editTable/${this.state.tableId}`}>
+                      <div className="edit_btn">
+                        <MyButton
+                          text="Edit"
+                          style={{ borderRadius: "10px" }}
+                        ></MyButton>
+                      </div>
+                    </Link>
+                  </div>
                 </div>
               </>
             )}

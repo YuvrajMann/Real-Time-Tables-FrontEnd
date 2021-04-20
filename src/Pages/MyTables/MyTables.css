@@ -37,10 +37,13 @@
 }
 .my_tablefooter {
   display: flex;
-  flex-direction: row;
-  align-items: baseline;
+  justify-content: space-between;
+}
+.option_aval {
+  display: flex;
+  align-items: center;
   align-content: center;
-  justify-content: flex-end;
+  justify-content: center;
 }
 .sub_modal_content {
   margin-top: 10px;
@@ -70,6 +73,9 @@
 .particular_subname_header .content_subname .particular_sub div {
   width: 50%;
   text-align: center;
+}
+.ownership_info {
+  margin-top: 20px;
 }
 /* .sub_modal_content {
   display: flex;
@@ -180,4 +186,12 @@
   margin-top: 20px;
   color: #f05454;
   text-align: center;
+}
+.viewer_list {
+  display: flex;
+  overflow: auto;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
 }

@@ -54,7 +54,7 @@ class ViewUser extends Component {
   onProfileDelte() {
     this.setState({ ...this.state, deleteBtnLoading: true }, () => {
       axiosInstance
-        .delete("https://localhost:3433/upload/profilePic")
+        .delete("/upload/profilePic")
         .then((res) => {
           message.success("Removed profile pic successfully");
           this.setState({
@@ -72,6 +72,7 @@ class ViewUser extends Component {
     });
   }
   render() {
+    console.log(this.state.userData);
     return (
       <div className="user_wrapper">
         <Modal
