@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { axiosInstance } from "../../utils/axiosInterceptor.js";
-import { Button, message, Modal } from "antd";
+import { Button, Divider, message, Modal } from "antd";
 import MyButton from "../../Components/MyButton/MyButton";
 import "./MyTables.css";
+import { Avatar } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 
 class OwnershipDisplay extends Component {
   constructor(props) {
@@ -17,7 +19,6 @@ class OwnershipDisplay extends Component {
     };
   }
   componentDidMount() {
-    console.log(this.props.type);
     if (this.props.owner && this.props.type.toString() == "owner") {
       axiosInstance
         .get(`/users/${this.props.owner}`)
@@ -45,7 +46,6 @@ class OwnershipDisplay extends Component {
       });
     } else if (this.props.viewers && this.props.type.toString() == "viewer") {
       var setView = [];
-      console.log(this.props.viewers);
       this.props.viewers.map((editor) => {
         axiosInstance
           .get(`/users/${editor}`)
@@ -56,7 +56,6 @@ class OwnershipDisplay extends Component {
             console.log(err);
           });
       });
-      console.log(setView);
       this.setState({
         ...this.state,
         viewer: setView,
@@ -88,7 +87,22 @@ class OwnershipDisplay extends Component {
               }}
             >
               {this.state.owner.map((owner) => {
-                return <div>{owner.username}</div>;
+                //profilePic
+                return (
+                  <div
+                    className="li_holder"
+                    onClick={() => {
+                      this.props.history.push(`/viewUser/${owner._id}`);
+                    }}
+                  >
+                    <div style={{ marginRight: "10px" }}>
+                      <Avatar
+                        src={`https://localhost:3433/${owner.profilePic}`}
+                      />
+                    </div>
+                    <div>{owner.username}</div>
+                  </div>
+                );
               })}
             </div>
           </Modal>
@@ -127,7 +141,54 @@ class OwnershipDisplay extends Component {
               }}
             >
               {this.state.editor.map((editor) => {
-                return <div>{editor.username}</div>;
+                return (
+                  <div className="li_wrap_hold">
+                    <div
+                      className="li_holder"
+                      onClick={() => {
+                        this.props.history.push(`/viewUser/${editor._id}`);
+                      }}
+                    >
+                      <div style={{ marginRight: "10px" }}>
+                        <Avatar
+                          src={`https://localhost:3433/${editor.profilePic}`}
+                        />
+                      </div>
+                      <div>{editor.username}</div>
+                    </div>
+                    {this.props.loggedUserDetails &&
+                    this.props.owner &&
+                    this.props.loggedUserDetails._id.toString() ==
+                      this.props.owner.toString() ? (
+                      <MyButton
+                        onClick={() => {
+                          axiosInstance
+                            .post("/access/removeAccess/edit", {
+                              table: `${this.props.tableId}`,
+                              ofUser: `${editor._id}`,
+                            })
+                            .then((res) => {
+                              message.success(
+                                "View access successfully taken away!"
+                              );
+                              this.setState({
+                                ...this.state,
+                                viewerVisible: false,
+                              });
+                            })
+                            .catch((err) => {
+                              message.warn("Some error occured");
+                              console.log(err);
+                            });
+                        }}
+                        text="Take away edit access"
+                        style={{ borderRadius: "10px", marginLeft: "10px" }}
+                      ></MyButton>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                );
               })}
             </div>
           </Modal>
@@ -166,7 +227,62 @@ class OwnershipDisplay extends Component {
               }}
             >
               {this.state.viewer.map((viewer) => {
-                return <div>{viewer.username}</div>;
+                return (
+                  <div className="li_wrap_hold">
+                    <div
+                      className="li_holder"
+                      onClick={() => {
+                        this.props.history.push(`/viewUser/${viewer._id}`);
+                      }}
+                    >
+                      <div>
+                        <Avatar
+                          src={`https://localhost:3433/${viewer.profilePic}`}
+                        />
+                      </div>
+                      <div style={{ marginLeft: "10px" }}>
+                        {viewer.username}
+                      </div>
+                    </div>
+                    {this.props.loggedUserDetails &&
+                    this.props.owner &&
+                    this.props.loggedUserDetails._id.toString() ==
+                      this.props.owner.toString() ? (
+                      <MyButton
+                        onClick={() => {
+                          axiosInstance
+                            .post("/access/removeAccess/view", {
+                              table: `${this.props.tableId}`,
+                              ofUser: `${viewer._id}`,
+                            })
+                            .then((res) => {
+                              axiosInstance
+                                .post("/access/removeAccess/edit", {
+                                  table: `${this.props.tableId}`,
+                                  ofUser: `${viewer._id}`,
+                                })
+                                .then((res) => {
+                                  message.success(
+                                    "View access successfully taken away!"
+                                  );
+                                  this.setState({
+                                    ...this.state,
+                                    viewerVisible: false,
+                                  });
+                                });
+                            })
+                            .catch((err) => {
+                              message.warn("Some error occured");
+                            });
+                        }}
+                        text="Take away view access"
+                        style={{ borderRadius: "10px", marginLeft: "10px" }}
+                      ></MyButton>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                );
               })}
             </div>
           </Modal>

@@ -195,3 +195,19 @@
   align-content: center;
   align-items: center;
 }
+.li_holder {
+  display: flex;
+  width: 100%;
+  padding: 8px;
+  font-size: 18px;
+  padding-left: -10px;
+  justify-content: center;
+}
+.li_holder:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.048);
+}
+.li_wrap_hold{
+  display: flex;
+  align-items: center;
+}

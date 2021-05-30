@@ -8,7 +8,7 @@ import {
   notification,
 } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell } from "@fortawesome/free-solid-svg-icons";
+import { faBell,faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { axiosInstance } from "../../utils/axiosInterceptor.js";
 import "./NotificationPopover.css";
 class NotificationPopover extends Component {
@@ -73,9 +73,10 @@ class NotificationPopover extends Component {
         .get("/notifications")
         .then((res) => {
           console.log(res.data);
+          let revNot=res.data.reverse();
           this.setState({
             ...this.state,
-            notifications: res.data,
+            notifications: revNot,
             loading: false,
           });
         })
@@ -102,6 +103,7 @@ class NotificationPopover extends Component {
               <div className="notification">
                 <div className="message">{notification.message}</div>
                 <div className="access_btn">
+                  <div>
                   <Button
                     style={{
                       backgroundColor: "#f05454",
@@ -138,6 +140,22 @@ class NotificationPopover extends Component {
                   >
                     Cancel
                   </Button>
+                  </div>
+                  <Tooltip placement="left" title={()=>{
+                    let createdAt=notification.createdAt;
+                    let date=createdAt.split('T')[0];
+                    let time=createdAt.split('T')[1];
+                    time=time.split('.')[0];
+                    return(
+                      <>
+                      {date}
+                      <br></br>{time}
+                      </>
+                      
+                    )
+                  }}>
+                      <FontAwesomeIcon icon={faCalendar}></FontAwesomeIcon>
+                  </Tooltip>
                 </div>
               </div>
             );

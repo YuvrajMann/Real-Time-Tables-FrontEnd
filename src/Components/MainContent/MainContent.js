@@ -7,6 +7,7 @@ import AddTable from "../../Pages/AddTable/AddTable";
 import AllTables from "../../Pages/AllTables/AllTables";
 import EditTables from "../../Pages/EditTable/EditTable";
 import ViewUser from "../../Pages/ViewUser/viewUser.js";
+import ViewUserOwner from "../../Pages/ViewUser/viewUserOwner";
 const { Content } = Layout;
 
 class MainContent extends Component {
@@ -37,8 +38,15 @@ class MainContent extends Component {
               return <MyTables history={this.props.history}></MyTables>;
             }}
           ></Route>
-          <Route
+           <Route
             path="/viewUser"
+            exact
+            children={() => {
+              return <ViewUserOwner history={this.props.history}></ViewUserOwner>;
+            }}
+          ></Route>
+          <Route
+            path="/viewUser/:userId"
             exact
             children={() => {
               return <ViewUser history={this.props.history}></ViewUser>;

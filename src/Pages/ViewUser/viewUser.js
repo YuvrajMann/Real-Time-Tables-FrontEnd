@@ -14,11 +14,10 @@ class ViewUser extends Component {
       isdeleteModalVisible: false,
       deleteBtnLoading: false,
     };
-    this.onProfileDelte = this.onProfileDelte.bind(this);
     this.fetchUserDetails = this.fetchUserDetails.bind(this);
     this.formRef = React.createRef();
   }
-  fetchUserDetails() {
+  fetchUserDetails(userId) {
     setTimeout(() => {
       this.setState({
         ...this.state,
@@ -26,7 +25,7 @@ class ViewUser extends Component {
         userData: null,
       });
       axiosInstance
-        .get("/users")
+        .get(`/users/${userId}`)
         .then((res) => {
           this.setState(
             {
@@ -49,81 +48,16 @@ class ViewUser extends Component {
     }, 2000);
   }
   componentDidMount() {
-    this.fetchUserDetails();
+    let userId=this.props.history.location.pathname.split('/')[2];
+    console.log(userId);
+    this.fetchUserDetails(userId);
   }
-  onProfileDelte() {
-    this.setState({ ...this.state, deleteBtnLoading: true }, () => {
-      axiosInstance
-        .delete("/upload/profilePic")
-        .then((res) => {
-          message.success("Removed profile pic successfully");
-          this.setState({
-            ...this.state,
-            deleteBtnLoading: false,
-          });
-        })
-        .catch((err) => {
-          this.setState({
-            ...this.state,
-            deleteBtnLoading: false,
-          });
-          message.success("Error while removing profile pic");
-        });
-    });
-  }
+  
   render() {
     console.log(this.state.userData);
     return (
       <div className="user_wrapper">
-        <Modal
-          visible={this.state.isdeleteModalVisible}
-          onCancel={() => {
-            this.setState({ ...this.state, isdeleteModalVisible: false });
-          }}
-          footer={[]}
-        >
-          <div className="delte_modal_wrapper">
-            <div className="modal_header">
-              Are you sure that you want to delete profile pic?
-            </div>
-            <div className="modal_action_btns">
-              <Button
-                style={{
-                  backgroundColor: "#f05454",
-                  color: "white",
-                  border: "1px solid #f05454",
-                  marginLeft: "5px",
-                  borderRadius: "10px",
-                  fontWeight: 600,
-                  loading: false,
-                }}
-                onClick={this.onProfileDelte}
-                loading={this.state.deleteBtnLoading}
-              >
-                Delete
-              </Button>
-              <Button
-                style={{
-                  backgroundColor: "white",
-                  color: "#f05454",
-                  border: "1px solid #f05454",
-                  marginLeft: "5px",
-                  borderRadius: "10px",
-                  fontWeight: 600,
-                  loading: false,
-                }}
-                onClick={() => {
-                  this.setState({
-                    ...this.state,
-                    isdeleteModalVisible: false,
-                  });
-                }}
-              >
-                Cancel
-              </Button>
-            </div>
-          </div>
-        </Modal>
+       
         {!this.state.loading && this.state.userData ? (
           <div className="cover_user">
             <div className="profilePic">
@@ -155,32 +89,6 @@ class ViewUser extends Component {
                   </Avatar>
                 </>
               )}
-              <div className="action_btns">
-                <div className="profile_upload_btn">
-                  <UploadModal
-                    fetchUserDetails={this.fetchUserDetails}
-                  ></UploadModal>
-                </div>
-                <div className="remove_profile_btn">
-                  <Button
-                    style={{
-                      border: "1px solid #f05454",
-                      background: "white",
-                      color: "#f05454",
-                      fontWeight: "600",
-                      borderRadius: "7px",
-                    }}
-                    onClick={() => {
-                      this.setState({
-                        ...this.state,
-                        isdeleteModalVisible: true,
-                      });
-                    }}
-                  >
-                    Remove Profile Pic
-                  </Button>
-                </div>
-              </div>
             </div>
             <div className="divider"></div>
             <div className="right_content">
@@ -243,10 +151,7 @@ class ViewUser extends Component {
                   <></>
                 )}
               </div>
-              <EditProfile
-                userData={this.state.userData}
-                formRef={this.formRef}
-              ></EditProfile>
+             
             </div>
           </div>
         ) : (

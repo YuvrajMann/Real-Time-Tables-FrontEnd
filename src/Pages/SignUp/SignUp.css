@@ -1,34 +1,46 @@
-.signUpWrapper {
-  height: 100%;
-  display: flex;
-  /* justify-content: space-between; */
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
 }
-.left_content {
-  width: 40%;
+.signUpWrapper {
+  display: flex;
   height: 100vh;
-  background: url("../../assests/alex-iby-xVPaGwmde0A-unsplash.jpg") no-repeat
-    bottom;
-  background-repeat: no-repeat;
+  width: 100vw;
+  justify-content: space-between;
+}
+.left_content { 
+  /* height: 100vh; */
+  min-width: 35%;
+  /* background: url("../../assests/alex-iby-xVPaGwmde0A-unsplash.jpg") no-repeat
+    bottom; */
+  /* background-repeat: no-repeat; */
+  color: black;
   background-size: auto;
-  overflow-y: auto;
+  overflow-y: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-left: 20px;
+  /* padding-left: 20px;
   padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 20px; */
 }
+
 .left_content > div:nth-child(3) {
   color: white;
   font-size: 17px;
-  font-weight: 500;
+  font-weight: 600;
 }
-#left_text {
-  margin-top: -130px;
+#sign_text{
+  color: white;
+  font-size: 31px;
+  /* margin-top: 40%; */
+  font-weight: 600;
 }
 #left_text > div:nth-child(1) {
   color: white;
   font-weight: 600;
+  /* margin-top: 40%; */
   font-size: 50px;
 }
 #left_text > div:nth-child(2) {
@@ -47,7 +59,7 @@
   width: 100%;
 } */
 .right_content {
-  width: 60%;
+    min-width: 60%;
   padding-left: 80px;
   padding-right: 80px;
   overflow-y: auto;
@@ -67,4 +79,17 @@
   height: 37px;
   border-radius: 5px;
   border: 1px solid black;
+}
+.in_context{
+  position: absolute;
+  top: 10px;
+  left: 30px;
+  height: 90%;
+}
+.in_context>div{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-around;
+  height: 100%;
 }

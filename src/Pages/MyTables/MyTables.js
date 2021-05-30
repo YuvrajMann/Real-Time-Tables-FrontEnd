@@ -43,6 +43,7 @@ class MyTables extends Component {
       owner: null,
       viewers: null,
       editors: null,
+      loggedUserDetails:null,
     };
     this.clock = this.clock.bind(this);
     this.handleMakeRequest = this.handleMakeRequest.bind(this);
@@ -54,19 +55,30 @@ class MyTables extends Component {
     axiosInstance
       .get(`/table/${tableId}`)
       .then((table) => {
-        this.setState({ ...this.state, isAccessible: true });
-        console.log(table);
-        this.createColumns(table.data.periods);
-        this.createData(table.data.table);
-        this.setState({
-          ...this.state,
-          tableName: table.data.tableName,
-          tableId: tableId,
-          loading: false,
-          owner: table.data.user,
-          viewers: table.data.view_access,
-          editors: table.data.edit_access,
-        });
+        axiosInstance.get(`https://localhost:3433/users`).then((userInfo)=>{
+            this.setState({ ...this.state, isAccessible: true });
+            console.log(userInfo);
+            this.createColumns(table.data.periods);
+            this.createData(table.data.table);
+            this.setState({
+              ...this.state,
+              tableName: table.data.tableName,
+              tableId: tableId,
+              loading: false,
+              owner: table.data.user,
+              viewers: table.data.view_access,
+              editors: table.data.edit_access,
+              loggedUserDetails:userInfo.data,
+            });
+        })
+        .catch((err)=>{
+          message.warn('Some error occured');
+          this.setState({
+            ...this.state,
+            loading: false,
+          });
+          console.log(err);
+        })
       })
       .catch((err) => {
         console.log(err.response.status);
@@ -225,15 +237,27 @@ class MyTables extends Component {
                   <div className="ownership_info">
                     <OwnershipDisplay
                       type="owner"
+                      tableId={this.state.tableId}
+                      history={this.props.history}
                       owner={this.state.owner}
+                      loggedUserDetails={this.state.loggedUserDetails}
                     ></OwnershipDisplay>
                     <OwnershipDisplay
+                      tableId={this.state.tableId}
                       type="viewer"
+                      history={this.props.history}
                       viewers={this.state.viewers}
+                      owner={this.state.owner}
+                      loggedUserDetails={this.state.loggedUserDetails}
+
                     ></OwnershipDisplay>
                     <OwnershipDisplay
                       type="editor"
+                      tableId={this.state.tableId}
+                      loggedUserDetails={this.state.loggedUserDetails}
+                      history={this.props.history}
                       editors={this.state.editors}
+                      owner={this.state.owner}
                     ></OwnershipDisplay>
                   </div>
                   <div className="option_aval">

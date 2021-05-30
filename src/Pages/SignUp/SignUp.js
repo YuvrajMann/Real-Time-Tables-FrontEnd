@@ -15,6 +15,7 @@ import logo from "../../assests/clockWhite.svg";
 import { axiosInstance } from "../../utils/axiosInterceptor.js";
 import * as EmailValidator from "email-validator";
 import axios from "axios";
+import left_img from "../../assests/alex-iby-xVPaGwmde0A-unsplash.jpg";
 const { Option } = Select;
 const layout = {
   labelCol: {
@@ -116,15 +117,20 @@ class SignUp extends Component {
     return (
       <div className="signUpWrapper">
         <div className="left_content">
-          <div className="logo">
-            <img src={logo} width={60}></img>
+          <img src={left_img}></img>
+          <div className="in_context">
+            <div>
+            <div className="logo">
+                <img src={logo} width={60}></img>
+              </div>
+                  <div id="left_text">
+                    <div>Real Time Tables</div>
+                    <div>Time management starts here</div>
+                  </div>
+                  <div id="sign_text">Sign up to experince the change</div>
+               </div>
+            </div>
           </div>
-          <div id="left_text">
-            <div>Real Time Tables</div>
-            <div>Time management starts here</div>
-          </div>
-          <div>Sign up to experince the change</div>
-        </div>
         <div className="right_content">
           <Row id="header_signup">
             <Col span={24}>
