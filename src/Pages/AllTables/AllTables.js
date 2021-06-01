@@ -24,7 +24,7 @@ const Card = (props) => {
         <div></div>
         <div>{props.tableName}</div>
 
-        <DelTable table={props}></DelTable>
+        <DelTable type={props.type} table={props}></DelTable>
       </div>
       <div className="option_table">
         <Link to={`/tables/${props.tableId}`}>
@@ -52,6 +52,7 @@ class AllTables extends Component {
     this.state = {
       loading: false,
       tables: null,
+      savedTables:null
     };
     this.fetchAllTables = this.fetchAllTables.bind(this);
   }
@@ -65,7 +66,8 @@ class AllTables extends Component {
         this.setState({
           ...this.state,
           tables: res.data.results,
-          loading: false,
+        },()=>{
+          this.getSavedTables();
         });
       })
       .catch((err) => {
@@ -77,6 +79,21 @@ class AllTables extends Component {
         message.warn(err.message);
       });
   }
+  getSavedTables(){
+    this.setState({
+      ...this.state,loading:true
+    });
+    axiosInstance.get("/savetable").then((res)=>{
+      this.setState({
+        ...this.state,savedTables:res.data,loading:false
+      })
+    })
+    .catch((err)=>{
+      this.setState({
+        ...this.state,loading:false
+      })
+    })
+  }
   componentDidMount() {
     this.fetchAllTables();
   }
@@ -84,7 +101,7 @@ class AllTables extends Component {
     console.log(this.props.history);
     return (
       <div className="wrapper">
-        <div className="all_header">Tables</div>
+        <div className="all_header">Owned Tables</div>
         <Divider></Divider>
         {!this.state.loading ? (
           <Row gutter={[16, 24]}>
@@ -99,7 +116,8 @@ class AllTables extends Component {
                 </Tooltip>
               </div>
             </Col>
-            {this.state.tables
+           
+           {this.state.tables
               ? this.state.tables.map((table) => {
                   return (
                     <Col md={8} sm={12} xs={24}>
@@ -108,6 +126,25 @@ class AllTables extends Component {
                         createdAt={table.createdAt}
                         updatedAt={table.updatedAt}
                         tableId={table._id}
+                        type="owned_table"
+                        fetchAllTables={this.fetchAllTables}
+                      ></Card>
+                    </Col>
+                  );
+                })
+              : null}
+               <Col span={24} style={{marginTop:'20px'}} className="all_header">Saved Tables</Col>
+              <Divider></Divider>
+              {this.state.savedTables
+              ? this.state.savedTables.map((table) => {
+                  return (
+                    <Col md={8} sm={12} xs={24}>
+                      <Card
+                        tableName={table.tableName}
+                        createdAt={table.createdAt}
+                        updatedAt={table.updatedAt}
+                        tableId={table._id}
+                        type="saved_table"
                         fetchAllTables={this.fetchAllTables}
                       ></Card>
                     </Col>

@@ -8,6 +8,7 @@ import { axiosInstance } from "./utils/axiosInterceptor";
 import { message } from "antd";
 import SignUp from "./Pages/SignUp/SignUp.js";
 import axios from "axios";
+import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);

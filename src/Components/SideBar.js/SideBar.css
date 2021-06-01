@@ -43,9 +43,21 @@
 #tables::-webkit-scrollbar-thumb {
   background: #8fa4b9;
   border-radius: 10px;
+  
 }
 
 /* Handle on hover */
 #tables::-webkit-scrollbar-thumb:hover {
   background: #5c748b;
+}
+#static_text{
+  font-weight: 700;
+  margin-top: 15px;
+  font-size: 1.3em;
+  border: 1x solid #5c748b;
+  text-align: center;
+  color: white; 
+}
+#static_text:focus{
+  background-color: ghostwhite;
 }

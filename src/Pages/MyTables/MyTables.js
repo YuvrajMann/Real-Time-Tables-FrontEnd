@@ -7,6 +7,7 @@ import {
   faClock,
   faSpinner,
   faShare,
+  faSave
 } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import { axiosInstance } from "../../utils/axiosInterceptor.js";
@@ -16,6 +17,7 @@ import "./MyTables.css";
 import SubjectModal from "./SubjectModal.js";
 import ShareModal from "./ShareModal.js";
 import OwnershipDisplay from "./OwnershipDisplay.js";
+import axios from "axios";
 
 const days = [
   "Monday",
@@ -44,9 +46,12 @@ class MyTables extends Component {
       viewers: null,
       editors: null,
       loggedUserDetails:null,
+      isSaveAble:false,
+      saveBtnLoading:false,
     };
     this.clock = this.clock.bind(this);
     this.handleMakeRequest = this.handleMakeRequest.bind(this);
+    this.saveTable=this.saveTable.bind(this);
   }
   fetchTableDetails = () => {
     const tableId = this.props.history.location.pathname.split("/")[2];
@@ -64,11 +69,12 @@ class MyTables extends Component {
               ...this.state,
               tableName: table.data.tableName,
               tableId: tableId,
-              loading: false,
               owner: table.data.user,
               viewers: table.data.view_access,
               editors: table.data.edit_access,
               loggedUserDetails:userInfo.data,
+            },()=>{
+              this.setSaveable();
             });
         })
         .catch((err)=>{
@@ -96,6 +102,22 @@ class MyTables extends Component {
         });
       });
   };
+  setSaveable(){
+    const tableId = this.props.history.location.pathname.split("/")[2];
+    this.setState({
+      ...this.state,loading:true
+    });
+    axiosInstance.get(`/savetable/checkSavable/${tableId}`).then((res)=>{
+      this.setState({
+        ...this.state,loading:false,isSaveAble:true
+      });
+    })
+    .catch((err)=>{
+      this.setState({
+        ...this.state,loading:false,isSaveAble:false,
+      });
+    })
+  }
   componentDidMount() {
     let path = `http://localhost:3006/${this.props.history.location.pathname}`;
     this.clock();
@@ -191,6 +213,23 @@ class MyTables extends Component {
         }
       });
   }
+  saveTable(){
+    this.setState({
+      ...this.state,saveBtnLoading:true,
+    });
+    axiosInstance.post(`/savetable/saveTable`,{table:`${this.state.tableId}`}).then((res)=>{
+      this.setState({
+        ...this.state,saveBtnLoading:false,
+      });
+      message.success('Table saved successfully.Please reload to view changes !');
+    })
+    .catch((err)=>{
+      this.setState({
+        ...this.state,saveBtnLoading:false,
+      });
+      message.warn('Not able to save the table');
+    })
+  }
   render() {
     const d = new Date();
     // const dateToFormat = "dddd, MMMM Do YYYY";
@@ -198,6 +237,27 @@ class MyTables extends Component {
 
     return (
       <div className="wrapper">
+        {
+          (!this.state.loading&&this.state.isSaveAble)?(
+            <>
+              <Button
+               loading={this.state.saveBtnLoading}
+               onClick={this.saveTable}
+               style={{
+                textAlign: "center",
+                marginBottom: "25px",
+                backgroundColor: "black",
+                color: "white",
+                fontSize: "1.1em",
+                fontWeight: "bold",
+                borderRadius: "10px",
+                border: "1px solid black",
+              }}><FontAwesomeIcon icon={faSave}></FontAwesomeIcon><sapn>{` `}Save Table</sapn></Button>
+            </>
+          ):(
+            <></>
+          )
+        }
         {this.state.isAccessible ? (
           <>
             <div className="tableHeader">

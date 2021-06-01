@@ -169,7 +169,7 @@ class OwnershipDisplay extends Component {
                             })
                             .then((res) => {
                               message.success(
-                                "View access successfully taken away!"
+                                "Edit access successfully taken away!"
                               );
                               this.setState({
                                 ...this.state,
@@ -256,15 +256,16 @@ class OwnershipDisplay extends Component {
                               ofUser: `${viewer._id}`,
                             })
                             .then((res) => {
+                              message.success(
+                                "View access successfully taken away!"
+                              );
                               axiosInstance
                                 .post("/access/removeAccess/edit", {
                                   table: `${this.props.tableId}`,
                                   ofUser: `${viewer._id}`,
                                 })
                                 .then((res) => {
-                                  message.success(
-                                    "View access successfully taken away!"
-                                  );
+                                  
                                   this.setState({
                                     ...this.state,
                                     viewerVisible: false,

@@ -7,6 +7,7 @@ import { Link, withRouter } from "react-router-dom";
 import { axiosInstance } from "../../utils/axiosInterceptor.js";
 import Spinner from "../Spinner/Spinner";
 import "./SideBar.css";
+import axios from "axios";
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
@@ -15,10 +16,26 @@ class SideBar extends Component {
     super(props);
     this.state = {
       tables: null,
+      savedTables:null,
       loading: false,
       isAllTable: false,
     };
     this.getAllTable = this.getAllTable.bind(this);
+  }
+  getSavedTables(){
+    this.setState({
+      ...this.state,loading:true
+    });
+    axiosInstance.get("/savetable").then((res)=>{
+      this.setState({
+        ...this.state,savedTables:res.data,loading:false
+      })
+    })
+    .catch((err)=>{
+      this.setState({
+        ...this.state,loading:false
+      })
+    })
   }
   getAllTable() {
     this.setState({ ...this.state, loading: true });
@@ -30,7 +47,8 @@ class SideBar extends Component {
           this.setState({
             ...this.state,
             tables: res.data.results,
-            loading: false,
+          },()=>{
+            this.getSavedTables();
           });
         })
         .catch((err) => {
@@ -45,7 +63,7 @@ class SideBar extends Component {
   }
   componentDidMount() {
     this.getAllTable();
-  }
+}
   render() {
     return (
       <Sider
@@ -130,6 +148,17 @@ class SideBar extends Component {
                       <Link to={`/tables/${table._id}`}>{table.tableName}</Link>
                     </Menu.Item>
                   );
+                })
+              : null}
+              
+              {this.state.savedTables
+              ? this.state.savedTables.map((table, index) => {
+                const tableName = table.tableName.replace(/ /g, "_");
+                return (
+                  <Menu.Item key={table._id}>
+                    <Link to={`/tables/${table._id}`}>{table.tableName}</Link>
+                  </Menu.Item>
+                );
                 })
               : null}
           </Menu>

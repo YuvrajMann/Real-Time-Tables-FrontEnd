@@ -18,6 +18,7 @@ class NotificationPopover extends Component {
       notifications: null,
       loading: false,
       grantButtonLoading: false,
+      canceButtonLoading:false,
     };
     this.giveAccess = this.giveAccess.bind(this);
   }
@@ -92,6 +93,28 @@ class NotificationPopover extends Component {
         });
     }, 2000);
   }
+  deleteNotification(notification){
+    this.setState({
+      ...this.state,
+        canceButtonLoading:true,
+    })
+    axiosInstance.delete(`notifications/remove/${notification._id}`).then((res)=>{
+      this.setState({
+        ...this.state,
+          canceButtonLoading:false,
+      },()=>{
+        this.fetchNotifications();
+      })
+    })
+    .catch((err)=>{
+      console.log(err);
+      this.setState({
+        ...this.state,
+          canceButtonLoading:false,
+      });
+      message.warn("Not able to delete notification");
+    })
+  }
   render() {
     const Maincontent = () => {
       return this.state.loading ? (
@@ -136,6 +159,10 @@ class NotificationPopover extends Component {
                       padding: "5px",
                       fontSize: "12px",
                       borderRadius: "10px",
+                    }}
+                    loading={this.state.canceButtonLoading}
+                    onClick={()=>{
+                      this.deleteNotification(notification);
                     }}
                   >
                     Cancel

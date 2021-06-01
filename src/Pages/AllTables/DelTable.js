@@ -12,6 +12,7 @@ class DelTable extends Component {
     };
     this.handleCancel = this.handleCancel.bind(this);
     this.deleteTable = this.deleteTable.bind(this);
+    this.deleteSaveTable=this.deleteSaveTable.bind(this);
   }
   handleCancel() {
     this.setState({
@@ -19,6 +20,27 @@ class DelTable extends Component {
       isOpen: false,
       btnLoading: false,
     });
+  }
+  deleteSaveTable() {
+    this.setState({ ...this.state, btnLoading: true });
+
+    axiosInstance
+      .delete(`/savetable/removeTable/${this.props.table.tableId}`)
+      .then((res) => {
+        console.log(res);
+        message.success("Table deleted successfully");
+        this.setState(
+          { ...this.state, btnLoading: false, isOpen: false },
+          () => {
+            this.props.table.fetchAllTables();
+          }
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+        this.setState({ ...this.state, btnLoading: false, isOpen: false });
+        message.warn(err.message);
+      });
   }
   deleteTable() {
     this.setState({ ...this.state, btnLoading: true });
@@ -54,7 +76,20 @@ class DelTable extends Component {
           >
             <div className="modalContent">
               <div className="header">
-                Do you really want to delete {this.props.table.tableName}?
+                {this.props.type ? (
+                  this.props.type == "owned_table" ? (
+                    <>
+                      Do you really want to delete {this.props.table.tableName}?
+                    </>
+                  ) : (
+                    <>
+                      Do you really want to remove {this.props.table.tableName}{" "}
+                      from saved list?
+                    </>
+                  )
+                ) : (
+                  ""
+                )}
               </div>
               <div className="footer">
                 <Button
@@ -72,22 +107,47 @@ class DelTable extends Component {
                 >
                   Cancel
                 </Button>
-
-                <Button
-                  style={{
-                    justifyContent: "center",
-                    backgroundColor: "#f05454",
-                    borderColor: "#f05454",
-                    color: "#fff",
-                    fontWeight: 600,
-                    textAlign: "center",
-                    borderRadius: "10px",
-                  }}
-                  loading={this.state.btnLoading}
-                  onClick={this.deleteTable}
-                >
-                  Delete
-                </Button>
+                {this.props.type ? (
+                  this.props.type == "owned_table" ? (
+                    <>
+                      <Button
+                        style={{
+                          justifyContent: "center",
+                          backgroundColor: "#f05454",
+                          borderColor: "#f05454",
+                          color: "#fff",
+                          fontWeight: 600,
+                          textAlign: "center",
+                          borderRadius: "10px",
+                        }}
+                        loading={this.state.btnLoading}
+                        onClick={this.deleteTable}
+                      >
+                        Delete
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button
+                        style={{
+                          justifyContent: "center",
+                          backgroundColor: "#f05454",
+                          borderColor: "#f05454",
+                          color: "#fff",
+                          fontWeight: 600,
+                          textAlign: "center",
+                          borderRadius: "10px",
+                        }}
+                        loading={this.state.btnLoading}
+                        onClick={this.deleteSaveTable}
+                      >
+                        Delete
+                      </Button>
+                    </>
+                  )
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </Modal>
