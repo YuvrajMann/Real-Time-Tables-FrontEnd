@@ -34,7 +34,7 @@ class App extends Component {
     // this.toggleLoggedIn();
     if (token) {
       axios
-        .post("https://localhost:3433/users/checktoken", {
+        .post("https://real-time-tables.herokuapp.com/users/checktoken", {
           headers: { Authorization: `Bearer ${token}` },
           token: token,
         })

@@ -1,6 +1,6 @@
 import axios from "axios";
 export var axiosInstance = axios.create({
-  baseURL: "https://localhost:3433",
+  baseURL: "https://real-time-tables.herokuapp.com",
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",

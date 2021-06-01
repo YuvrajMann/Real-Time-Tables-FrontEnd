@@ -221,7 +221,7 @@ class EditTable extends Component {
     });
 
     axiosInstance
-      .post(`https://localhost:3433/access/accessRequest/${tableId}`, {
+      .post(`/access/accessRequest/${tableId}`, {
         access_request: "Edit",
       })
       .then((res) => {

@@ -60,7 +60,7 @@ class MyTables extends Component {
     axiosInstance
       .get(`/table/${tableId}`)
       .then((table) => {
-        axiosInstance.get(`https://localhost:3433/users`).then((userInfo)=>{
+        axiosInstance.get(`/users`).then((userInfo)=>{
             this.setState({ ...this.state, isAccessible: true });
             console.log(userInfo);
             this.createColumns(table.data.periods);
@@ -190,7 +190,7 @@ class MyTables extends Component {
     });
 
     axiosInstance
-      .post(`https://localhost:3433/access/accessRequest/${tableId}`, {
+      .post(`/access/accessRequest/${tableId}`, {
         access_request: "View",
       })
       .then((res) => {
