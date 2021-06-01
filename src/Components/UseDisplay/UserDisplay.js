@@ -91,7 +91,7 @@ class UserDisplay extends Component {
             this.state.userData &&
             this.state.userData.hasOwnProperty("profilePic") &&
             this.state.userData.profilePic ? (
-              `https://localhost:3433/${this.state.userData.profilePic}`
+              `https://real-time-tables.herokuapp.com/${this.state.userData.profilePic}`
             ) : (
               <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
             )
