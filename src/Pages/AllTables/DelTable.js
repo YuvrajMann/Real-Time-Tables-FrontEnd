@@ -44,7 +44,6 @@ class DelTable extends Component {
   }
   deleteTable() {
     this.setState({ ...this.state, btnLoading: true });
-    setTimeout(() => {
       axiosInstance
         .delete(`/table/${this.props.table.tableId}`)
         .then((res) => {
@@ -62,7 +61,6 @@ class DelTable extends Component {
           this.setState({ ...this.state, btnLoading: false, isOpen: false });
           message.warn(err.message);
         });
-    }, 2000);
   }
   render() {
     return (

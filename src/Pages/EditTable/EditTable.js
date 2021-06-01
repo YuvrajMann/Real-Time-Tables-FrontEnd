@@ -187,7 +187,6 @@ class EditTable extends Component {
   fetchTableDetails = () => {
     const tableId = this.props.history.location.pathname.split("/")[2];
     this.setState({ ...this.state, loading: true });
-    setTimeout(() => {
       axiosInstance
         .get(`/table/${tableId}`)
         .then((table) => {
@@ -210,7 +209,6 @@ class EditTable extends Component {
             loading: false,
           });
         });
-    }, 1000);
   };
 
   handleMakeRequest() {

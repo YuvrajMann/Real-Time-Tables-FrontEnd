@@ -27,7 +27,6 @@ class NotificationPopover extends Component {
       ...this.state,
       loading: true,
     });
-    setTimeout(() => {
       axiosInstance
         .post("/access/approveRequest", {
           user: user,
@@ -62,14 +61,12 @@ class NotificationPopover extends Component {
             console.log("Error", error.message);
           }
         });
-    }, 2000);
   }
   fetchNotifications() {
     this.setState({
       ...this.state,
       loading: true,
     });
-    setTimeout(() => {
       axiosInstance
         .get("/notifications")
         .then((res) => {
@@ -91,7 +88,6 @@ class NotificationPopover extends Component {
             message.warn(err.message);
           }
         });
-    }, 2000);
   }
   deleteNotification(notification){
     this.setState({

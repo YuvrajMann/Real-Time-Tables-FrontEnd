@@ -39,7 +39,6 @@ class SideBar extends Component {
   }
   getAllTable() {
     this.setState({ ...this.state, loading: true });
-    setTimeout(() => {
       axiosInstance
         .get("/table")
         .then((res) => {
@@ -59,7 +58,6 @@ class SideBar extends Component {
           console.log(err);
           message.warn(err.message);
         });
-    }, 2000);
   }
   componentDidMount() {
     this.getAllTable();

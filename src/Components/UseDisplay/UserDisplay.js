@@ -22,7 +22,6 @@ class UserDisplay extends Component {
       ...this.state,
       loading: true,
     });
-    setTimeout(() => {
       axiosInstance
         .get("/users")
         .then((res) => {
@@ -41,7 +40,6 @@ class UserDisplay extends Component {
             loading: false,
           });
         });
-    }, 3000);
   }
   componentDidMount() {
     this.fetchUserDetails();
@@ -61,7 +59,7 @@ class UserDisplay extends Component {
                     this.state.userData &&
                     this.state.userData.hasOwnProperty("profilePic") &&
                     this.state.userData.profilePic ? (
-                      `https://localhost:3433/${this.state.userData.profilePic}`
+                      `https://real-time-tables.herokuapp.com/${this.state.userData.profilePic}`
                     ) : (
                       <>H</>
                     )

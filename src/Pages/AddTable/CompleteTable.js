@@ -158,7 +158,7 @@ class CompleteTable extends Component {
     subjects["subInfo"] = this.props.tableinfo.subInfo;
     result["subjects"] = subjects;
     console.log(result);
-    setTimeout(() => {
+
       axiosInstance
         .post("/table", result)
         .then((res) => {
@@ -172,7 +172,7 @@ class CompleteTable extends Component {
           message.warn(err.message);
           console.log(err);
         });
-    }, 2000);
+
   };
   render() {
     const columns = this.createColumns();

@@ -18,7 +18,6 @@ class ViewUser extends Component {
     this.formRef = React.createRef();
   }
   fetchUserDetails(userId) {
-    setTimeout(() => {
       this.setState({
         ...this.state,
         loading: true,
@@ -45,7 +44,6 @@ class ViewUser extends Component {
             loading: false,
           });
         });
-    }, 2000);
   }
   componentDidMount() {
     let userId=this.props.history.location.pathname.split('/')[2];

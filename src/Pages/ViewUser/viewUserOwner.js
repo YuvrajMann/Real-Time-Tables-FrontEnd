@@ -19,7 +19,6 @@ class ViewUser extends Component {
     this.formRef = React.createRef();
   }
   fetchUserDetails() {
-    setTimeout(() => {
       this.setState({
         ...this.state,
         loading: true,
@@ -46,7 +45,6 @@ class ViewUser extends Component {
             loading: false,
           });
         });
-    }, 2000);
   }
   componentDidMount() {
   

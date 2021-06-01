@@ -55,10 +55,6 @@ class App extends Component {
   }
   render() {
     const NoMatch = (props) => {
-      // setTimeout(() => {
-      //   props.history.push("/");
-      // }, 2000);
-
       return (
         <>
           <h1 style={{ textAlign: "center", paddingTop: "10px" }}>
