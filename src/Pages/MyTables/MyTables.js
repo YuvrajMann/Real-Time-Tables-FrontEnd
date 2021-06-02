@@ -119,7 +119,7 @@ class MyTables extends Component {
     })
   }
   componentDidMount() {
-    let path = `http://localhost:3006/${this.props.history.location.pathname}`;
+    let path = `https://realtimetables.netlify.app/${this.props.history.location.pathname}`;
     this.clock();
     setInterval(this.clock, 1000);
     console.log("asdsad");
@@ -264,7 +264,7 @@ class MyTables extends Component {
               <div className="table_name">
                 My Tables/{this.state.tableName}{" "}
                 <ShareModal
-                  pathname={`http://localhost:3006${this.props.history.location.pathname}`}
+                  pathname={`https://realtimetables.netlify.app${this.props.history.location.pathname}`}
                 />
               </div>
 

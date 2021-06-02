@@ -168,10 +168,13 @@
   align-items: center;
   /* border-radius: 5px; */
 }
+.copy div:nth-child(1){
+  font-size: 12px;
+}
 #copy_icon {
   /* margin-left: 4px; */
   text-align: center;
-  border-left: 1px solid black;
+  /* border-left: 1px solid black; */
   padding-left: 15px;
 
   font-size: 20px;

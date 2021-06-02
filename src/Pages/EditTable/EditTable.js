@@ -51,18 +51,21 @@ class EditTable extends Component {
       });
   }
   verifyEditAvilabe() {
+    this.setState({...this.state,loading:true});
     var tableId = this.props.history.location.pathname.split("/")[2];
     axiosInstance
       .get(`/access/editAccess/?table=${tableId}`)
       .then((res) => {
         this.setState({
           ...this.state,
+          loading:false,
           isAccessible: true,
         });
       })
       .catch((err) => {
         this.setState({
           ...this.state,
+          loading:false,
           isAccessible: false,
         });
       });
@@ -138,7 +141,7 @@ class EditTable extends Component {
               style={{ width: "100%" }}
               defaultValue={x[0]}
             >
-              {this.state.subjects.subjects.map((sub) => {
+              {this.state.subjects&&this.state.subjects.subjects.map((sub) => {
                 return (
                   <Option
                     key={sub.name}
@@ -243,122 +246,132 @@ class EditTable extends Component {
       });
   }
   render() {
-    if (this.state.isAccessible) {
-      return (
+    if(this.state.loading){
+      return(
         <div className="edit_table_wrapper">
-          {!this.state.loading && this.state.columns && this.state.data ? (
-            <>
-              <div className="content_header active">
-                <input
-                  type="text"
-                  className={
-                    this.state.isActive ? "table_inp_active" : "table_inp"
-                  }
-                  value={this.state.tableName}
-                  onChange={(e) => {
-                    this.setState({
-                      ...this.state,
-                      tableName: e.target.value,
-                    });
-                  }}
-                  onFocus={() => {
-                    this.setState({
-                      ...this.state,
-                      isActive: true,
-                    });
-                  }}
-                  onBlur={() => {
-                    this.setState({
-                      ...this.state,
-                      isActive: false,
-                    });
-                  }}
-                ></input>
-              </div>
-              <div>
-                <TableContent
-                  columns={this.state.columns}
-                  data={this.state.data}
-                ></TableContent>
-              </div>
-              <div className="edit_footer">
-                <div className="action_btns">
-                  <Button
-                    style={{
-                      backgroundColor: "white",
-                      color: "#f05454",
-                      border: "1px solid #f05454",
-                      marginLeft: "5px",
-                      borderRadius: "10px",
-                      fontWeight: 600,
-                      loading: false,
-                    }}
-                    onClick={() => {
-                      const tableId = this.props.history.location.pathname.split(
-                        "/"
-                      )[2];
-                      this.props.history.push(`/tables/${tableId}`);
-                    }}
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    style={{
-                      backgroundColor: "#f05454",
-                      color: "white",
-                      border: "1px solid #f05454",
-                      marginLeft: "5px",
-                      borderRadius: "10px",
-                      fontWeight: 600,
-                    }}
-                    loading={this.state.btnLoading}
-                    onClick={this.saveNewChanges}
-                  >
-                    Save Changes
-                  </Button>
-                </div>
-              </div>
-            </>
-          ) : (
-            <Skeleton active></Skeleton>
-          )}
-        </div>
-      );
-    } else {
-      return (
-        <div className="inaccessibe_wrapper">
-          {!this.state.makeRequestLoading ? (
-            <>
-              <div className="oops">Oops!</div>
-              <div className="inaccess_header">
-                Edit access for this table is not available to you
-              </div>
-              <div>Make an edit access request to the owner of this table</div>
-              <Button
-                style={{
-                  textAlign: "center",
-                  marginTop: "25px",
-                  backgroundColor: "black",
-                  color: "white",
-                  fontSize: "1.1em",
-                  fontWeight: "bold",
-                  borderRadius: "10px",
-                  border: "1px solid black",
-                }}
-                disabled={this.state.isButtonDisabled}
-                loading={this.state.makeRequestLoading}
-                className="access_button"
-                onClick={this.handleMakeRequest}
-              >
-                Make Request
-              </Button>
-            </>
-          ) : (
-            <Skeleton></Skeleton>
-          )}
-        </div>
-      );
+        <Skeleton active></Skeleton>
+      </div>
+      )
     }
+    else{
+      if (this.state.isAccessible) {
+        return (
+          <div className="edit_table_wrapper">
+            {!this.state.loading && this.state.columns && this.state.data ? (
+              <>
+                <div className="content_header active">
+                  <input
+                    type="text"
+                    className={
+                      this.state.isActive ? "table_inp_active" : "table_inp"
+                    }
+                    value={this.state.tableName}
+                    onChange={(e) => {
+                      this.setState({
+                        ...this.state,
+                        tableName: e.target.value,
+                      });
+                    }}
+                    onFocus={() => {
+                      this.setState({
+                        ...this.state,
+                        isActive: true,
+                      });
+                    }}
+                    onBlur={() => {
+                      this.setState({
+                        ...this.state,
+                        isActive: false,
+                      });
+                    }}
+                  ></input>
+                </div>
+                <div>
+                  <TableContent
+                    columns={this.state.columns}
+                    data={this.state.data}
+                  ></TableContent>
+                </div>
+                <div className="edit_footer">
+                  <div className="action_btns">
+                    <Button
+                      style={{
+                        backgroundColor: "white",
+                        color: "#f05454",
+                        border: "1px solid #f05454",
+                        marginLeft: "5px",
+                        borderRadius: "10px",
+                        fontWeight: 600,
+                        loading: false,
+                      }}
+                      onClick={() => {
+                        const tableId = this.props.history.location.pathname.split(
+                          "/"
+                        )[2];
+                        this.props.history.push(`/tables/${tableId}`);
+                      }}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      style={{
+                        backgroundColor: "#f05454",
+                        color: "white",
+                        border: "1px solid #f05454",
+                        marginLeft: "5px",
+                        borderRadius: "10px",
+                        fontWeight: 600,
+                      }}
+                      loading={this.state.btnLoading}
+                      onClick={this.saveNewChanges}
+                    >
+                      Save Changes
+                    </Button>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <Skeleton active></Skeleton>
+            )}
+          </div>
+        );
+      } else {
+        return (
+          <div className="inaccessibe_wrapper">
+            {!this.state.makeRequestLoading ? (
+              <>
+                <div className="oops">Oops!</div>
+                <div className="inaccess_header">
+                  Edit access for this table is not available to you
+                </div>
+                <div>Make an edit access request to the owner of this table</div>
+                <Button
+                  style={{
+                    textAlign: "center",
+                    marginTop: "25px",
+                    backgroundColor: "black",
+                    color: "white",
+                    fontSize: "1.1em",
+                    fontWeight: "bold",
+                    borderRadius: "10px",
+                    border: "1px solid black",
+                  }}
+                  disabled={this.state.isButtonDisabled}
+                  loading={this.state.makeRequestLoading}
+                  className="access_button"
+                  onClick={this.handleMakeRequest}
+                >
+                  Make Request
+                </Button>
+              </>
+            ) : (
+              <Skeleton active></Skeleton>
+            )}
+          </div>
+        );
+      }
+    }
+    
   }
 }
 export default EditTable;
