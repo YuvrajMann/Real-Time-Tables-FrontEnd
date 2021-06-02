@@ -245,6 +245,7 @@ class ViewUser extends Component {
               <EditProfile
                 userData={this.state.userData}
                 formRef={this.formRef}
+                fetchUserDetails={this.fetchUserDetails}
               ></EditProfile>
             </div>
           </div>

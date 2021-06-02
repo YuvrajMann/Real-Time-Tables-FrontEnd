@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal, Button, Form, Input, Select, InputNumber } from "antd";
+import { Modal, Button, Form, Input, Select, InputNumber, message } from "antd";
 import { UserOutlined, EditFilled } from "@ant-design/icons";
 import { axiosInstance } from "../../utils/axiosInterceptor";
 import "./viewUser.css";
@@ -24,10 +24,28 @@ class EditProfile extends Component {
     super(props);
     this.state = {
       isModalVisible: false,
+      btnLoading:false,
     };
+    this.onFinish=this.onFinish.bind(this);
   }
   onFinish(e) {
     console.log(e);
+    this.setState({...this.state,btnLoading:true});
+    axiosInstance.put('/users/profileChange',{...e}).then((res)=>{
+      this.setState({
+        ...this.state,btnLoading:false,
+        isModalVisible:false,
+      },()=>{
+        this.props.fetchUserDetails();
+      });
+      message.success('Profile updated Successfully');
+    })
+    .catch((err)=>{
+      this.setState({
+        ...this.state,btnLoading:false,
+      });
+      message.warn('Not able to update the details');
+    })
   }
   render() {
     console.log(this.props.userData);
@@ -79,6 +97,7 @@ class EditProfile extends Component {
                 <Button
                   type="primary"
                   htmlType="submit"
+                  loading={this.state.btnLoading}
                   style={{
                     backgroundColor: "#f05454",
                     color: "white",
