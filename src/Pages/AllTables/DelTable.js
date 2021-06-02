@@ -27,7 +27,7 @@ class DelTable extends Component {
     axiosInstance
       .delete(`/savetable/removeTable/${this.props.table.tableId}`)
       .then((res) => {
-        console.log(res);
+       
         message.success("Table deleted successfully");
         this.setState(
           { ...this.state, btnLoading: false, isOpen: false },
@@ -47,7 +47,7 @@ class DelTable extends Component {
       axiosInstance
         .delete(`/table/${this.props.table.tableId}`)
         .then((res) => {
-          console.log(res);
+        
           message.success("Table deleted successfully");
           this.setState(
             { ...this.state, btnLoading: false, isOpen: false },

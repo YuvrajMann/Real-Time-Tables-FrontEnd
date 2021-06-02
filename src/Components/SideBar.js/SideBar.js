@@ -42,7 +42,7 @@ class SideBar extends Component {
       axiosInstance
         .get("/table")
         .then((res) => {
-          console.log(res);
+    
           this.setState({
             ...this.state,
             tables: res.data.results,

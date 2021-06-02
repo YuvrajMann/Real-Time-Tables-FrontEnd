@@ -80,18 +80,18 @@ class SignUp extends Component {
     });
   }
   onSubmit(e) {
-    console.log(this.state.userName.validateStatus);
+   
     if (
       this.state.userName.validateStatus == "success" &&
       this.state.email.validateStatus == "success"
     ) {
-      console.log(e);
+    
       this.setState({ ...this.state, btnLoading: true });
       axiosInstance
         .post("/users/signup", { ...e })
         .then((res) => {
           this.setState({ ...this.state, btnLoading: false }, () => {
-            console.log(res);
+      
             this.props.history.push("/");
             message.success("Successfully Signed Up");
           });

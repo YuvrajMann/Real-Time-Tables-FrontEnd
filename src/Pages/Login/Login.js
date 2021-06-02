@@ -29,7 +29,7 @@ class Login extends Component {
 
   handleLogin = () => {
     const { username, password } = this.state;
-    console.log(username, password);
+  
     if (
       username != null &&
       username != "" &&
@@ -57,14 +57,14 @@ class Login extends Component {
               const newToken = res.data.token;
               axiosInstance.interceptors.request.use((config) => {
                 const auth = `Bearer ${newToken}`;
-                console.log(auth);
+            
                 config.headers.Authorization = `Bearer ${newToken}`;
                 return config;
               });
               localStorage.setItem("token", newToken);
               this.props.toggleLoggedIn();
               message.success("Successfully logged in");
-              console.log(res);
+            
             })
             .catch((err) => {
               this.setState({

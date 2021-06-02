@@ -8,10 +8,9 @@ import DelTable from "./DelTable";
 import "./AllTables.css";
 
 const Card = (props) => {
-  console.log(props);
+
   let creationDate;
   if (props.createdAt) {
-    console.log(props.createdAt.split("T"));
     creationDate = props.createdAt.split("T")[0];
   }
   let updateDate;
@@ -62,7 +61,7 @@ class AllTables extends Component {
     axiosInstance
       .get("/table")
       .then((res) => {
-        console.log(res);
+   
         this.setState({
           ...this.state,
           tables: res.data.results,
@@ -98,7 +97,6 @@ class AllTables extends Component {
     this.fetchAllTables();
   }
   render() {
-    console.log(this.props.history);
     return (
       <div className="wrapper">
         <div className="all_header">Owned Tables</div>

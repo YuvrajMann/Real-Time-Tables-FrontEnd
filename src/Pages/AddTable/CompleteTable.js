@@ -64,13 +64,28 @@ class CompleteTable extends Component {
       if (setObj) {
         setObj[days[day]][slot] = sub;
       }
-      console.log(setObj);
       return {
         ...prevState,
         completeDetails: setObj,
       };
     });
   };
+  componentDidMount(){
+    this.setState((prevState) => {
+      const setObj = prevState.completeDetails;
+      for(var day=0;day<7;++day){
+        for (let i = 1; i <= this.props.tableinfo.numberOfPeriods; ++i) {
+            if(setObj){
+              setObj[days[day]][i]='NA';
+            }
+        }
+      }
+      return {
+        ...prevState,
+        completeDetails: setObj,
+      };
+    });
+  }
   createColumns = () => {
     let columns = [];
     columns.push({
@@ -90,8 +105,7 @@ class CompleteTable extends Component {
           slot = timeSlots[prop];
         }
       }
-
-      let tit = `${slot[0].format("hh:mm")} - ${slot[1].format("hh:mm")}`;
+      let tit = `${slot[0].format("HH:mm")} - ${slot[1].format("HH:mm")}`;
       let subjects = this.createMenuOption();
       columns.push({
         title: tit,
@@ -105,6 +119,7 @@ class CompleteTable extends Component {
               placeholder="Select a subject"
               optionFilterProp="children"
               onChange={this.handleSelectChange}
+              defaultValue={`NA'__'${row}'__'${i}`}
             >
               {subjects.map((sub, index) => {
                 const str = sub[`Sub_${index + 1}_Name`];
@@ -133,15 +148,14 @@ class CompleteTable extends Component {
     for (var slot in lec_slot) {
       if (lec_slot.hasOwnProperty(slot)) {
         var temp = {};
-        temp["1"] = `${lec_slot[slot][0].format("hh:mm")}-${lec_slot[
+        temp["1"] = `${lec_slot[slot][0].format("HH:mm")}-${lec_slot[
           slot
-        ][1].format("hh:mm")}`;
+        ][1].format("HH:mm")}`;
 
         periods.push(temp);
       }
     }
     result["periods"] = periods;
-    console.log(this.state.completeDetails);
     var table = [];
     for (var day in this.state.completeDetails) {
       if (this.state.completeDetails.hasOwnProperty(day)) {
@@ -157,7 +171,6 @@ class CompleteTable extends Component {
     subjects["numberOfSub"] = this.props.tableinfo.numberOfSub;
     subjects["subInfo"] = this.props.tableinfo.subInfo;
     result["subjects"] = subjects;
-    console.log(result);
 
       axiosInstance
         .post("/table", result)
@@ -177,7 +190,6 @@ class CompleteTable extends Component {
   render() {
     const columns = this.createColumns();
     const data = this.createData();
-    console.log(this.props);
     return (
       <div className="input_wrapper">
         <Table

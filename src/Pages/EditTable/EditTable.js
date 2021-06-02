@@ -88,7 +88,6 @@ class EditTable extends Component {
       change[day] = {};
       change[day][col] = new_sub;
     }
-    console.log(change);
     this.setState({
       ...this.state,
       finalData: change,
@@ -98,7 +97,6 @@ class EditTable extends Component {
     const tableId = this.props.history.location.pathname.split("/")[2];
     let update = this.state.finalData;
     update["tableName"] = this.state.tableName;
-    console.log(update);
     this.setState({ ...this.state, btnLoading: true });
 
     axiosInstance
@@ -171,7 +169,6 @@ class EditTable extends Component {
       temp["key"] = index;
       temp["Day"] = row.day;
       var setsch = {};
-      console.log(row.schedule);
       for (var key in Object.keys(row.schedule)) {
         const k = Number(key) + 1;
         if (row.schedule.hasOwnProperty(k)) {
@@ -179,7 +176,6 @@ class EditTable extends Component {
         }
       }
       let merged = { ...temp, ...setsch };
-      console.log(merged);
       tabledata.push(merged);
     });
     this.setState({
@@ -226,7 +222,6 @@ class EditTable extends Component {
         access_request: "Edit",
       })
       .then((res) => {
-        console.log(res.data);
         message.success("Request sent successfully!");
         this.setState({
           ...this.state,

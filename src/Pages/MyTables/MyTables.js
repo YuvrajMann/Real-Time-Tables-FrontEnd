@@ -62,7 +62,6 @@ class MyTables extends Component {
       .then((table) => {
         axiosInstance.get(`/users`).then((userInfo)=>{
             this.setState({ ...this.state, isAccessible: true });
-            console.log(userInfo);
             this.createColumns(table.data.periods);
             this.createData(table.data.table);
             this.setState({
@@ -122,11 +121,9 @@ class MyTables extends Component {
     let path = `https://realtimetables.netlify.app/${this.props.history.location.pathname}`;
     this.clock();
     setInterval(this.clock, 1000);
-    console.log("asdsad");
     this.fetchTableDetails();
   }
   createColumns(periods) {
-    console.log(periods);
     var columns = [];
     let dayCol = {
       title: "Day",
@@ -144,7 +141,6 @@ class MyTables extends Component {
       temp["key"] = index + 1;
       columns.push(temp);
     });
-    console.log(columns);
     this.setState({
       ...this.state,
       columns: columns,
@@ -194,7 +190,7 @@ class MyTables extends Component {
         access_request: "View",
       })
       .then((res) => {
-        console.log(res.data);
+      
         message.success("Request sent successfully!");
         this.setState({
           ...this.state,

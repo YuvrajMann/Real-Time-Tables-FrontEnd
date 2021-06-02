@@ -49,7 +49,7 @@ class UploadModal extends Component {
               }
             );
 
-            console.log(res);
+          
           })
           .catch((err) => {
             this.setState({
@@ -63,7 +63,7 @@ class UploadModal extends Component {
     );
   }
   render() {
-    console.log(this.state.files);
+ 
     const files = this.state.files.map((file) => (
       <li key={file.path}>
         {file.path} - {file.size} bytes

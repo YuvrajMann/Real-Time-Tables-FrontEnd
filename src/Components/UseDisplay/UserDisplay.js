@@ -25,7 +25,7 @@ class UserDisplay extends Component {
       axiosInstance
         .get("/users")
         .then((res) => {
-          console.log(res.data);
+        
           this.setState({
             ...this.state,
             loading: false,
@@ -77,7 +77,7 @@ class UserDisplay extends Component {
     }
   };
   render() {
-    console.log(this.state.userData);
+  
     const content = this.content();
     return (
       <Popover content={content} trigger="click">

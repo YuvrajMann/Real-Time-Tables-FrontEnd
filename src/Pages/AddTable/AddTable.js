@@ -42,7 +42,6 @@ class AddTable extends Component {
     this.setLectureSlots = this.setLectureSlots.bind(this);
   }
   setLectureSlots(values) {
-    console.log(values);
     this.setState({
       ...this.state,
       lec_slot: values,
@@ -55,7 +54,6 @@ class AddTable extends Component {
     });
   }
   configTableChange(values) {
-    console.log("Success:", values);
     this.setState({
       numberOfPeriods: values.numberOfPeriods,
       numberOfSub: values.numberOfSub,

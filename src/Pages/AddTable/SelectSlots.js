@@ -9,12 +9,10 @@ class SelectSlots extends Component {
     this.onFinish = this.onFinish.bind(this);
   }
   onFinish(values) {
-    console.log(values);
     this.props.setLectureSlots(values);
     this.props.next();
   }
   render() {
-    console.log(this.props);
     const formItems = () => {
       let items = [];
       for (var i = 1; i <= this.props.numberOfPeriods; ++i) {
@@ -22,6 +20,7 @@ class SelectSlots extends Component {
           <Form.Item
             label={`Lecture ${i} Slot`}
             name={`Lecture_${i}_Slot`}
+            
             rules={[
               {
                 required: true,
@@ -30,7 +29,7 @@ class SelectSlots extends Component {
             ]}
             style={{ width: "100%" }}
           >
-            <RangePicker></RangePicker>
+            <RangePicker order={true}></RangePicker>
           </Form.Item>
         );
       }

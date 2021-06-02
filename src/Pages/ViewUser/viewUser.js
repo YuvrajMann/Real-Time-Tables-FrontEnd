@@ -47,12 +47,10 @@ class ViewUser extends Component {
   }
   componentDidMount() {
     let userId=this.props.history.location.pathname.split('/')[2];
-    console.log(userId);
     this.fetchUserDetails(userId);
   }
   
   render() {
-    console.log(this.state.userData);
     return (
       <div className="user_wrapper">
        

@@ -39,10 +39,10 @@ class App extends Component {
           token: token,
         })
         .then((res) => {
-          console.log(res);
+         
           axiosInstance.interceptors.request.use((config) => {
             const auth = `Bearer ${token}`;
-            console.log(auth);
+          
             config.headers.Authorization = `Bearer ${token}`;
             return config;
           });

@@ -71,7 +71,7 @@ class ViewUser extends Component {
     });
   }
   render() {
-    console.log(this.state.userData);
+
     return (
       <div className="user_wrapper">
         <Modal
