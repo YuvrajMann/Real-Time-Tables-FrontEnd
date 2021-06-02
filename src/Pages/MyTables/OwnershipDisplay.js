@@ -96,9 +96,25 @@ class OwnershipDisplay extends Component {
                     }}
                   >
                     <div style={{ marginRight: "10px" }}>
-                      <Avatar
-                        src={`https://localhost:3433/${owner.profilePic}`}
-                      />
+                      {owner.profilePic ? (
+                        <Avatar
+                          src={`https://real-time-tables.herokuapp.com/${owner.profilePic}`}
+                        />
+                      ) : (
+                        <Avatar
+                          style={{
+                            color: "#f56a00",
+                            backgroundColor: "#fde3cf",
+                          }}
+                        >
+                          <UserOutlined
+                            style={{
+                              alignContent: "center",
+                              justifyContent: "center",
+                            }}
+                          ></UserOutlined>
+                        </Avatar>
+                      )}
                     </div>
                     <div>{owner.username}</div>
                   </div>
@@ -150,9 +166,25 @@ class OwnershipDisplay extends Component {
                       }}
                     >
                       <div style={{ marginRight: "10px" }}>
-                        <Avatar
-                          src={`https://localhost:3433/${editor.profilePic}`}
-                        />
+                        {editor.profilePic ? (
+                          <Avatar
+                            src={`https://real-time-tables.herokuapp.com/${editor.profilePic}`}
+                          />
+                        ) : (
+                          <Avatar
+                            style={{
+                              color: "#f56a00",
+                              backgroundColor: "#fde3cf",
+                            }}
+                          >
+                            <UserOutlined
+                              style={{
+                                alignContent: "center",
+                                justifyContent: "center",
+                              }}
+                            ></UserOutlined>
+                          </Avatar>
+                        )}
                       </div>
                       <div>{editor.username}</div>
                     </div>
@@ -236,9 +268,25 @@ class OwnershipDisplay extends Component {
                       }}
                     >
                       <div>
-                        <Avatar
-                          src={`https://localhost:3433/${viewer.profilePic}`}
-                        />
+                        {viewer.profilePic ? (
+                          <Avatar
+                            src={`https://real-time-tables.herokuapp.com/${viewer.profilePic}`}
+                          />
+                        ) : (
+                          <Avatar
+                            style={{
+                              color: "#f56a00",
+                              backgroundColor: "#fde3cf",
+                            }}
+                          >
+                            <UserOutlined
+                              style={{
+                                alignContent: "center",
+                                justifyContent: "center",
+                              }}
+                            ></UserOutlined>
+                          </Avatar>
+                        )}
                       </div>
                       <div style={{ marginLeft: "10px" }}>
                         {viewer.username}
@@ -265,7 +313,6 @@ class OwnershipDisplay extends Component {
                                   ofUser: `${viewer._id}`,
                                 })
                                 .then((res) => {
-                                  
                                   this.setState({
                                     ...this.state,
                                     viewerVisible: false,
