@@ -8,7 +8,7 @@ import DelTable from "./DelTable";
 import "./AllTables.css";
 
 const Card = (props) => {
-
+  console.log(props);
   let creationDate;
   if (props.createdAt) {
     creationDate = props.createdAt.split("T")[0];
@@ -97,6 +97,7 @@ class AllTables extends Component {
     this.fetchAllTables();
   }
   render() {
+    console.log(this.state.tables);
     return (
       <div className="wrapper">
         <div className="all_header">Owned Tables</div>

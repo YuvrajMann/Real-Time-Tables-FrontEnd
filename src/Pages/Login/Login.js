@@ -29,7 +29,9 @@ class Login extends Component {
 
   handleLogin = () => {
     const { username, password } = this.state;
-  
+    let redirect=this.props.history.location.search.split('=')[1];
+   
+    console.log(redirect);
     if (
       username != null &&
       username != "" &&
@@ -64,7 +66,6 @@ class Login extends Component {
               localStorage.setItem("token", newToken);
               this.props.toggleLoggedIn();
               message.success("Successfully logged in");
-            
             })
             .catch((err) => {
               this.setState({

@@ -29,7 +29,6 @@ class EditProfile extends Component {
     this.onFinish=this.onFinish.bind(this);
   }
   onFinish(e) {
-    console.log(e);
     this.setState({...this.state,btnLoading:true});
     axiosInstance.put('/users/profileChange',{...e}).then((res)=>{
       this.setState({
@@ -48,7 +47,7 @@ class EditProfile extends Component {
     })
   }
   render() {
-    console.log(this.props.userData);
+  
     return (
       <>
         <Modal
@@ -127,7 +126,7 @@ class EditProfile extends Component {
 
             this.setState({ ...this.state, isModalVisible: true }, () => {
               if (this.props.formRef.current) {
-                console.log(this.props.formRef);
+              
                 this.props.formRef.current.setFieldsValue({
                   username: userData.username,
                   email: userData.email,

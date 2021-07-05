@@ -18,7 +18,12 @@ class MyTables extends Component {
     console.log(collapsed);
     this.setState({ collapsed });
   };
-
+  componentDidMount(){
+    const page = this.props.history.location.search.split("=")[1];
+    if(page){
+      this.props.history.push(page);
+    }
+  }
   render() {
     const page = this.props.history.location.pathname.split("/")[1];
     const isAllTable = page == "allTables";

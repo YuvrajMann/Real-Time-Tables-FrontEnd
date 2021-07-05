@@ -33,22 +33,23 @@ class App extends Component {
     // }
     // this.toggleLoggedIn();
     if (token) {
+      this.toggleLoggedIn();
+      axiosInstance.interceptors.request.use((config) => {
+        const auth = `Bearer ${token}`;
+      
+        config.headers.Authorization = `Bearer ${token}`;
+        return config;
+      });
       axios
         .post("https://real-time-tables.herokuapp.com/users/checktoken", {
           headers: { Authorization: `Bearer ${token}` },
           token: token,
         })
         .then((res) => {
-         
-          axiosInstance.interceptors.request.use((config) => {
-            const auth = `Bearer ${token}`;
           
-            config.headers.Authorization = `Bearer ${token}`;
-            return config;
-          });
-          this.toggleLoggedIn();
         })
         .catch((err) => {
+          this.toggleLoggedIn();
           console.log(err);
         });
     }
@@ -61,12 +62,12 @@ class App extends Component {
             You are not logged in to Real Time Tables.Please login to continue.
           </h1>
           <div style={{ textAlign: "center" }}>
-            <a href="/">Click here to move to home page</a>
+            <Link to={`/login/${props.history.location.pathname}`}>Click here to login</Link>
           </div>
         </>
       );
     };
-    const NoMatch2 = () => <p>Oops nothing found</p>;
+
     if (!this.state.isLoggedin) {
       return (
         <BrowserRouter>
@@ -82,6 +83,14 @@ class App extends Component {
                 ></Login>
               )}
             ></Route>
+            <Route path="/login"  exact
+              history={this.props.history}
+              render={(props) => (
+                <Login
+                  history={props.history}
+                  toggleLoggedIn={this.toggleLoggedIn}
+                ></Login>
+              )}></Route>
             <Route
               path="/signUp"
               exact
@@ -89,11 +98,11 @@ class App extends Component {
               render={(props) => <SignUp history={props.history}></SignUp>}
             ></Route>
             <Route
-              path="*"
-              component={(props) => {
-                return <NoMatch history={props.history}></NoMatch>;
-              }}
+              path="/nomatch"
+              exact={true}
+              render={(props) => <NoMatch history={props.history}></NoMatch>}
             />
+            <Route history={this.props.history} render={(props) => <Redirect to={{pathname: `/`,search: `?redirect=${props.history.location.pathname}`,}} />} />
           </Switch>
         </BrowserRouter>
       );

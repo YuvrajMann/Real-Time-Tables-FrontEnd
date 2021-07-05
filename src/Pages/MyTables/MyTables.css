@@ -75,7 +75,9 @@
   text-align: center;
 }
 .ownership_info {
+  display: flex;
   margin-top: 20px;
+  align-items: center;
 }
 /* .sub_modal_content {
   display: flex;
@@ -198,19 +200,38 @@
   align-content: center;
   align-items: center;
 }
-.li_holder {
+.viewer_list div.li_holder {
   display: flex;
-  width: 100%;
-  padding: 8px;
-  font-size: 18px;
-  padding-left: -10px;
-  justify-content: center;
+  
 }
-.li_holder:hover {
+.viewer_list div.li_holder:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.048);
+}
+.li_wrap_hold:hover{
+  background-color: ghostwhite;
 }
 .li_wrap_hold{
   display: flex;
   align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 18px;
+ align-content: center;
+ align-items: center;
+  justify-content: center;
+  background-color: ghostwhite; 
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 255, 0.082);
+}
+.owner_disp{
+  margin-left: 8px;
+  background-color: ghostwhite;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 255, 0.068);
+  margin-bottom: 5px;
+  margin-right: 10px;
+  display: inline-block;
 }

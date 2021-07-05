@@ -43,6 +43,7 @@ class DelTable extends Component {
       });
   }
   deleteTable() {
+    console.log(this.props.table.tableId);
     this.setState({ ...this.state, btnLoading: true });
       axiosInstance
         .delete(`/table/${this.props.table.tableId}`)
