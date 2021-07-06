@@ -199,12 +199,7 @@ class OwnershipDisplay extends Component {
                 {
                   ...this.state,
                   editorVisible: true,
-                  loading1: true
-                },
-                () => { 
-                    this.props.getViewsDetails(this.fetchData);
-                }
-              );
+                })
             }}
             text="Editors"
             style={{ borderRadius: "10px", marginRight: "10px" }}
@@ -322,9 +317,6 @@ class OwnershipDisplay extends Component {
                 {
                   ...this.state,
                   viewerVisible: true,
-                },
-                () => {
-                  this.props.getViewsDetails(this.fetchData);
                 }
               );
             }}
