@@ -23,7 +23,7 @@ class OwnershipDisplay extends Component {
     this.fetchData = this.fetchData.bind(this);
   }
   fetchData() {
-    this.setState({ ...this.state, loading: true });
+    this.setState({ ...this.state, loading: true,viewer:[],editor:[] });
     if (this.props.owner && this.props.type.toString() == "owner") {
       axiosInstance
         .get(`/users/${this.props.owner}`)
