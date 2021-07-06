@@ -114,7 +114,7 @@ class OwnershipDisplay extends Component {
             footer={[]}
           >
             <>
-              {!this.state.loading1 ? (
+              {!this.props.loading1 ? (
                 <div
                   className="viewer_list"
                   style={{
@@ -202,7 +202,7 @@ class OwnershipDisplay extends Component {
                   loading1: true
                 },
                 () => { 
-                    this.fetchData();
+                    this.props.getViewsDetails(this.fetchData);
                 }
               );
             }}
@@ -228,7 +228,7 @@ class OwnershipDisplay extends Component {
             footer={[]}
           >
             <>
-            {!this.state.loading ? (
+            {!this.props.loading1 ? (
               <div
                 className="viewer_list"
                 style={{
@@ -324,7 +324,7 @@ class OwnershipDisplay extends Component {
                   viewerVisible: true,
                 },
                 () => {
-                  this.fetchData();
+                  this.props.getViewsDetails(this.fetchData);
                 }
               );
             }}

@@ -7,7 +7,7 @@ import {
   faClock,
   faSpinner,
   faShare,
-  faSave
+  faSave,
 } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import { axiosInstance } from "../../utils/axiosInterceptor.js";
@@ -35,6 +35,7 @@ class MyTables extends Component {
       curTime: null,
       tableName: null,
       loading: false,
+      loading1:false,
       columns: [],
       data: [],
       pathLink: null,
@@ -45,14 +46,41 @@ class MyTables extends Component {
       owner: null,
       viewers: null,
       editors: null,
-      loggedUserDetails:null,
-      isSaveAble:false,
-      saveBtnLoading:false,
+      loggedUserDetails: null,
+      isSaveAble: false,
+      saveBtnLoading: false,
     };
     this.clock = this.clock.bind(this);
     this.handleMakeRequest = this.handleMakeRequest.bind(this);
-    this.saveTable=this.saveTable.bind(this);
+    this.saveTable = this.saveTable.bind(this);
+    this.getViewsDetails=this.getViewsDetails.bind(this);
   }
+
+  getViewsDetails = (fetchData) => {
+    const tableId = this.props.history.location.pathname.split("/")[2];
+    this.setState({ ...this.state, loading1: true });
+
+    axiosInstance
+      .get(`/table/${tableId}`)
+      .then((table) => {
+        this.setState({
+          ...this.state,
+          owner: table.data.user,
+          viewers: table.data.view_access,
+          editors: table.data.edit_acces,
+          loading1:false,
+        },()=>{
+          fetchData();
+        })
+      }).catch((err) => {
+        message.warn("Some error occured");
+        this.setState({
+          ...this.state,
+          loading1: false,
+        });
+        console.log(err);
+      });
+  };
   fetchTableDetails = () => {
     const tableId = this.props.history.location.pathname.split("/")[2];
     this.setState({ ...this.state, loading: true });
@@ -60,30 +88,35 @@ class MyTables extends Component {
     axiosInstance
       .get(`/table/${tableId}`)
       .then((table) => {
-        axiosInstance.get(`/users`).then((userInfo)=>{
+        axiosInstance
+          .get(`/users`)
+          .then((userInfo) => {
             this.setState({ ...this.state, isAccessible: true });
             this.createColumns(table.data.periods);
             this.createData(table.data.table);
+            this.setState(
+              {
+                ...this.state,
+                tableName: table.data.tableName,
+                tableId: tableId,
+                owner: table.data.user,
+                viewers: table.data.view_access,
+                editors: table.data.edit_access,
+                loggedUserDetails: userInfo.data,
+              },
+              () => {
+                this.setSaveable();
+              }
+            );
+          })
+          .catch((err) => {
+            message.warn("Some error occured");
             this.setState({
               ...this.state,
-              tableName: table.data.tableName,
-              tableId: tableId,
-              owner: table.data.user,
-              viewers: table.data.view_access,
-              editors: table.data.edit_access,
-              loggedUserDetails:userInfo.data,
-            },()=>{
-              this.setSaveable();
+              loading: false,
             });
-        })
-        .catch((err)=>{
-          message.warn('Some error occured');
-          this.setState({
-            ...this.state,
-            loading: false,
+            console.log(err);
           });
-          console.log(err);
-        })
       })
       .catch((err) => {
         console.log(err.response.status);
@@ -101,21 +134,28 @@ class MyTables extends Component {
         });
       });
   };
-  setSaveable(){
+  setSaveable() {
     const tableId = this.props.history.location.pathname.split("/")[2];
     this.setState({
-      ...this.state,loading:true
+      ...this.state,
+      loading: true,
     });
-    axiosInstance.get(`/savetable/checkSavable/${tableId}`).then((res)=>{
-      this.setState({
-        ...this.state,loading:false,isSaveAble:true
+    axiosInstance
+      .get(`/savetable/checkSavable/${tableId}`)
+      .then((res) => {
+        this.setState({
+          ...this.state,
+          loading: false,
+          isSaveAble: true,
+        });
+      })
+      .catch((err) => {
+        this.setState({
+          ...this.state,
+          loading: false,
+          isSaveAble: false,
+        });
       });
-    })
-    .catch((err)=>{
-      this.setState({
-        ...this.state,loading:false,isSaveAble:false,
-      });
-    })
   }
   componentDidMount() {
     let path = `https://realtimetables.netlify.app/${this.props.history.location.pathname}`;
@@ -190,7 +230,6 @@ class MyTables extends Component {
         access_request: "View",
       })
       .then((res) => {
-      
         message.success("Request sent successfully!");
         this.setState({
           ...this.state,
@@ -209,22 +248,29 @@ class MyTables extends Component {
         }
       });
   }
-  saveTable(){
+  saveTable() {
     this.setState({
-      ...this.state,saveBtnLoading:true,
+      ...this.state,
+      saveBtnLoading: true,
     });
-    axiosInstance.post(`/savetable/saveTable`,{table:`${this.state.tableId}`}).then((res)=>{
-      this.setState({
-        ...this.state,saveBtnLoading:false,
+    axiosInstance
+      .post(`/savetable/saveTable`, { table: `${this.state.tableId}` })
+      .then((res) => {
+        this.setState({
+          ...this.state,
+          saveBtnLoading: false,
+        });
+        message.success(
+          "Table saved successfully.Please reload to view changes !"
+        );
+      })
+      .catch((err) => {
+        this.setState({
+          ...this.state,
+          saveBtnLoading: false,
+        });
+        message.warn("Not able to save the table");
       });
-      message.success('Table saved successfully.Please reload to view changes !');
-    })
-    .catch((err)=>{
-      this.setState({
-        ...this.state,saveBtnLoading:false,
-      });
-      message.warn('Not able to save the table');
-    })
   }
   render() {
     const d = new Date();
@@ -233,13 +279,12 @@ class MyTables extends Component {
 
     return (
       <div className="wrapper">
-        {
-          (!this.state.loading&&this.state.isSaveAble)?(
-            <>
-              <Button
-               loading={this.state.saveBtnLoading}
-               onClick={this.saveTable}
-               style={{
+        {!this.state.loading && this.state.isSaveAble ? (
+          <>
+            <Button
+              loading={this.state.saveBtnLoading}
+              onClick={this.saveTable}
+              style={{
                 textAlign: "center",
                 marginBottom: "25px",
                 backgroundColor: "black",
@@ -248,12 +293,15 @@ class MyTables extends Component {
                 fontWeight: "bold",
                 borderRadius: "10px",
                 border: "1px solid black",
-              }}><FontAwesomeIcon icon={faSave}></FontAwesomeIcon><sapn>{` `}Save Table</sapn></Button>
-            </>
-          ):(
-            <></>
-          )
-        }
+              }}
+            >
+              <FontAwesomeIcon icon={faSave}></FontAwesomeIcon>
+              <sapn>{` `}Save Table</sapn>
+            </Button>
+          </>
+        ) : (
+          <></>
+        )}
         {this.state.isAccessible ? (
           <>
             <div className="tableHeader">
@@ -301,15 +349,18 @@ class MyTables extends Component {
                     <OwnershipDisplay
                       tableId={this.state.tableId}
                       type="viewer"
+                      loading1={this.state.loading1}
+                      getViewsDetails={this.getViewsDetails}
                       history={this.props.history}
                       viewers={this.state.viewers}
                       owner={this.state.owner}
                       loggedUserDetails={this.state.loggedUserDetails}
-
                     ></OwnershipDisplay>
                     <OwnershipDisplay
                       type="editor"
+                      loading1={this.state.loading1}
                       tableId={this.state.tableId}
+                      getViewsDetails={this.getViewsDetails}
                       loggedUserDetails={this.state.loggedUserDetails}
                       history={this.props.history}
                       editors={this.state.editors}
