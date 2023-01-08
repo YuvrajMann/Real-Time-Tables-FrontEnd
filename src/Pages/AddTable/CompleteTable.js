@@ -182,7 +182,7 @@ class CompleteTable extends Component {
         })
         .catch((err) => {
           this.setState({ ...this.state, btnLoading: false });
-          message.warn(err.message);
+         
           console.log(err);
         });
 

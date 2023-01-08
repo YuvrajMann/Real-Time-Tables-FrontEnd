@@ -41,7 +41,7 @@ class App extends Component {
         return config;
       });
       axios
-        .post("https://real-time-tables.herokuapp.com/users/checktoken", {
+        .post("https://realtimetables.azurewebsites.net/users/checktoken", {
           headers: { Authorization: `Bearer ${token}` },
           token: token,
         })

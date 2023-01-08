@@ -47,7 +47,7 @@ class Login extends Component {
         },
         () => {
           axios
-            .post("https://real-time-tables.herokuapp.com/users/login", {
+            .post("https://realtimetables.azurewebsites.net/users/login", {
               username: username,
               password: password,
             })

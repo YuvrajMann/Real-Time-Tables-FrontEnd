@@ -110,7 +110,7 @@ class MyTables extends Component {
             );
           })
           .catch((err) => {
-            message.warn("Some error occured");
+          
             this.setState({
               ...this.state,
               loading: false,

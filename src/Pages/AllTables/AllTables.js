@@ -75,7 +75,7 @@ class AllTables extends Component {
           loading: false,
         });
         console.log(err);
-        message.warn(err.message);
+        
       });
   }
   getSavedTables(){
